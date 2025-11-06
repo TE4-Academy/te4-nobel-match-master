@@ -6,14 +6,14 @@ const card_test = [
 
 const game = {
   cards: [],
-  filppedCards: [],
+  flippedCards: [],
   moves: 0,
   matches: 0,
-  isFlipped: false,
+  isFlipping: false,
   timer: 0,
-  timerintervall: null,
+  timerIntervall: null,
   difficulty: "easy",
-  parisNeeded: 3,
+  pairsNeeded: 3,
 };
 
 function createNobelCards() {
@@ -23,7 +23,7 @@ function createNobelCards() {
   selected.forEach((NobelWinner) => {
     cards.push({
       id: id++,
-      pariId: NobelWinner.id,
+      pairId: NobelWinner.id,
       type: "name",
       displayText: NobelWinner.name,
       matched: false,
@@ -31,8 +31,8 @@ function createNobelCards() {
     });
     cards.push({
       id: id++,
-      pariId: NobelWinner.id,
-      type: "name",
+      pairId: NobelWinner.id,
+      type: "achievement",
       displayText: NobelWinner.achievement,
       matched: false,
       flipped: false,
@@ -54,7 +54,7 @@ function checkMatch() {
     card2.matched = true;
     game.matches++;
     game.flippedCards = [];
-    checkWin();
+   // checkWin();
   } else {
     console.log("ingen match");
     game.isFlipping = true;
