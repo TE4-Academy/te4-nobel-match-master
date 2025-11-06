@@ -135,3 +135,21 @@ function renderCards() {
   document.getElementById("moves").textContent = game.moves;
   document.getElementById("matches").textContent = `${game.matches}/${game.pairsNeeded}`;
 }
+
+function startGame() {
+  console.log("🎮 Startar spel...");
+  
+ 
+  game.cards = createNobelCards(); 
+  
+
+  game.flippedCards = [];
+  game.moves = 0;
+  game.matches = 0;
+  game.isFlipping = false;
+  
+
+  renderCards();  
+  
+  console.log("✅ Spelet är klart!");
+}
