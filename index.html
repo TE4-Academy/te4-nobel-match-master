@@ -9,37 +9,34 @@
 <body class ="bg-gray-900 text-white min-h-screen p-8">
     
 <!--STARTSKÄRM-->
-<body class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
   <div id="startScreen" class="w-full max-w-md text-center">
     <h1 class="text-4xl font-bold mb-8">Nobel Match Master</h1>
     <div class="space-y-4">
       <button game-difficulty="easy"
-        class="bg-green-500 text-white px-8 py-4 font-bold hover:bg-green-600 rounded-lg w-full sm:w-64 block mx-auto">
+        class="bg-green-500 text-white px-8 py-4 font-bold hover:bg-green-600 rounded-lg w-full sm:w-64">
         Enkel (6 par)
       </button>
       <button game-difficulty="medium"
-        class="bg-yellow-500 text-white px-8 py-4 font-bold hover:bg-yellow-600 rounded-lg w-full sm:w-64 block mx-auto">
+        class="bg-yellow-500 text-white px-8 py-4 font-bold hover:bg-yellow-600 rounded-lg w-full sm:w-64">
         Medel (9 par)
       </button>
       <button game-difficulty="hard"
-        class="bg-red-500 text-white px-8 py-4 font-bold hover:bg-red-600 rounded-lg w-full sm:w-64 block mx-auto">
+        class="bg-red-500 text-white px-8 py-4 font-bold hover:bg-red-600 rounded-lg w-full sm:w-64">
         Svår (12 par)
       </button>
     </div>
   </div>
-</body>
-
 
 <!--SPELSKÄRM-->
-  <div id="gameScreen" class="max-w-4xl mx-auto hidden">
-    <h1 class="text-3xl font-bold mb-6 text-center">Nobel Match Master</h1>
+  <div id="gameScreen" class="w-full max-w-md text-center hidden">
+    <h1 class="text-4xl font-bold mb-8 space-y-4 mt-8">Nobel Match Master</h1>
     
     <div class="bg-gray-800 p-6 rounded-lg mb-6">
-      <div class="flex gap-6 justify-center">
-        <div>Tid: <span id="timer" class="font-bold text-blue-400">0:00</span></div>
-        <div>Försök: <span id="attempts" class="font-bold text-yellow-400">0</span></div>
-        <div>Matchningar: <span id="matches" class="font-bold text-green-400">0/6</span></div>
-        <div>Poäng: <span id="score" class="font-bold text-purple-400">0</span></div>
+      <div class="w-full max-w-md text-center">
+        <div>Tid: <span id="timer" class="font-bold text-blue-400 sm:w-64">0:00</span></div>
+        <div>Försök: <span id="attempts" class="font-bold text-yellow-400 sm:w-64">0</span></div>
+        <div>Matchningar: <span id="matches" class="font-bold text-green-400 sm:w-64">0/6</span></div>
+        <div>Poäng: <span id="score" class="font-bold text-purple-400 sm:w-64">0</span></div>
       </div>
     </div>
         <div id="cardGrid" class="grid gap-4"></div>
@@ -49,23 +46,16 @@
   <div id="endScreen" class="max-w-2xl mx-auto text-center hidden">
     <h2 class="text-4xl font-bold mb-8 text-green-400">Grattis! 🎉</h2>
     <div class="bg-gray-800 p-8 rounded-lg mb-6 space-y-4">
-      <p class="text-2xl">Poäng: <span id="finalScore" class="font-bold text-purple-400">0</span></p>
-      <p class="text-xl">Tid: <span id="finalTime" class="font-bold text-blue-400">0:00</span></p>
-      <p class="text-xl">Försök: <span id="finalAttempts" class="font-bold text-yellow-400">0</span></p>
+      <div>Poäng: <span id="finalScore" class="font-bold text-purple-400">0</span></div>
+      <div>Tid: <span id="finalTime" class="font-bold text-blue-400">0:00</span></div>
+      <div>Försök: <span id="finalAttempts" class="font-bold text-yellow-400">0</span></div>
     </div>
-    <button id="playAgain" class="bg-blue-500 text-white px-8 py-4 font-bold hover:bg-blue-600 rounded-lg">
+    <button id="playAgain" class="bg-blue-500 text-white px-8 py-4 font-bold hover:bg-blue-600 rounded-lg space-y-4 mt-8">
       Spela igen
     </button>
   </div>
-
-  <script src="app.js"></script>
-
+  
+<script src="game.js"></script>
 
 </body>
-</html>
-
-
-<script src="game.js"></script>
-    </body>
-
 </html>
