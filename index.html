@@ -88,12 +88,14 @@
     </div>
     <div id="cards" class="grid gap-4 grid-cols-3 mb-6"></div>
     <script src="game.js"></script>
-    <script>
-      // Vänta lite så HTML är helt klar
-      window.addEventListener("DOMContentLoaded", () => {
-        console.log("✅ HTML laddat!");
-        startGame();
-      });
+   <script>
+  // Visa gameScreen istället för startScreen (tillfälligt för test)
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('gameScreen').classList.remove('hidden');
+  
+  // Starta spel
+  startGame();
+</script>
     </script>
   </body>
 </html>
