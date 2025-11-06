@@ -1,61 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <script src="https://cdn.tailwindcss.com"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body class ="bg-gray-900 text-white min-h-screen p-8">
-    
-<!--STARTSKÄRM-->
-  <div id="startScreen" class="w-full max-w-md text-center">
-    <h1 class="text-4xl font-bold mb-8">Nobel Match Master</h1>
-    <div class="space-y-4">
-      <button game-difficulty="easy"
-        class="bg-green-500 text-white px-8 py-4 font-bold hover:bg-green-600 rounded-lg w-full sm:w-64">
-        Enkel (6 par)
-      </button>
-      <button game-difficulty="medium"
-        class="bg-yellow-500 text-white px-8 py-4 font-bold hover:bg-yellow-600 rounded-lg w-full sm:w-64">
-        Medel (9 par)
-      </button>
-      <button game-difficulty="hard"
-        class="bg-red-500 text-white px-8 py-4 font-bold hover:bg-red-600 rounded-lg w-full sm:w-64">
-        Svår (12 par)
-      </button>
-    </div>
-  </div>
-
-<!--SPELSKÄRM-->
-  <div id="gameScreen" class="w-full max-w-md text-center hidden">
-    <h1 class="text-4xl font-bold mb-8 space-y-4 mt-8">Nobel Match Master</h1>
-    
-    <div class="bg-gray-800 p-6 rounded-lg mb-6">
-      <div class="w-full max-w-md text-center">
-        <div>Tid: <span id="timer" class="font-bold text-blue-400 sm:w-64">0:00</span></div>
-        <div>Försök: <span id="attempts" class="font-bold text-yellow-400 sm:w-64">0</span></div>
-        <div>Matchningar: <span id="matches" class="font-bold text-green-400 sm:w-64">0/6</span></div>
-        <div>Poäng: <span id="score" class="font-bold text-purple-400 sm:w-64">0</span></div>
+  </head>
+  <body class="bg-gray-900 text-white min-h-screen p-8">
+    <!--STARTSKÄRM-->
+    <div id="startScreen" class="w-full max-w-md text-center">
+      <h1 class="text-4xl font-bold mb-8">Nobel Match Master</h1>
+      <div class="space-y-4">
+        <button
+          game-difficulty="easy"
+          class="bg-green-500 text-white px-8 py-4 font-bold hover:bg-green-600 rounded-lg w-full sm:w-64"
+        >
+          Enkel (6 par)
+        </button>
+        <button
+          game-difficulty="medium"
+          class="bg-yellow-500 text-white px-8 py-4 font-bold hover:bg-yellow-600 rounded-lg w-full sm:w-64"
+        >
+          Medel (9 par)
+        </button>
+        <button
+          game-difficulty="hard"
+          class="bg-red-500 text-white px-8 py-4 font-bold hover:bg-red-600 rounded-lg w-full sm:w-64"
+        >
+          Svår (12 par)
+        </button>
       </div>
     </div>
-        <div id="cardGrid" class="grid gap-4"></div>
-  </div>
 
-  <!--SLUTSKÄRM-->
-  <div id="endScreen" class="max-w-2xl mx-auto text-center hidden">
-    <h2 class="text-4xl font-bold mb-8 text-green-400">Grattis! 🎉</h2>
-    <div class="bg-gray-800 p-8 rounded-lg mb-6 space-y-4">
-      <div>Poäng: <span id="finalScore" class="font-bold text-purple-400">0</span></div>
-      <div>Tid: <span id="finalTime" class="font-bold text-blue-400">0:00</span></div>
-      <div>Försök: <span id="finalAttempts" class="font-bold text-yellow-400">0</span></div>
+    <!--SPELSKÄRM-->
+    <div id="gameScreen" class="w-full max-w-md text-center hidden">
+      <h1 class="text-4xl font-bold mb-8 space-y-4 mt-8">Nobel Match Master</h1>
+
+      <div class="bg-gray-800 p-6 rounded-lg mb-6">
+        <div class="w-full max-w-md text-center">
+          <div>
+            Tid:
+            <span id="timer" class="font-bold text-blue-400 sm:w-64">0:00</span>
+          </div>
+          <div>
+            Försök:
+            <span id="attempts" class="font-bold text-yellow-400 sm:w-64"
+              >0</span
+            >
+          </div>
+          <div>
+            Matchningar:
+            <span id="matches" class="font-bold text-green-400 sm:w-64"
+              >0/6</span
+            >
+          </div>
+          <div>
+            Poäng:
+            <span id="score" class="font-bold text-purple-400 sm:w-64">0</span>
+          </div>
+        </div>
+      </div>
+      <div id="cardGrid" class="grid gap-4"></div>
     </div>
-    <button id="playAgain" class="bg-blue-500 text-white px-8 py-4 font-bold hover:bg-blue-600 rounded-lg space-y-4 mt-8">
-      Spela igen
-    </button>
-  </div>
-  
-<script src="game.js"></script>
 
-</body>
+    <!--SLUTSKÄRM-->
+    <div id="endScreen" class="max-w-2xl mx-auto text-center hidden">
+      <h2 class="text-4xl font-bold mb-8 text-green-400">Grattis! 🎉</h2>
+      <div class="bg-gray-800 p-8 rounded-lg mb-6 space-y-4">
+        <div>
+          Poäng:
+          <span id="finalScore" class="font-bold text-purple-400">0</span>
+        </div>
+        <div>
+          Tid: <span id="finalTime" class="font-bold text-blue-400">0:00</span>
+        </div>
+        <div>
+          Försök:
+          <span id="finalAttempts" class="font-bold text-yellow-400">0</span>
+        </div>
+      </div>
+      <button
+        id="playAgain"
+        class="bg-blue-500 text-white px-8 py-4 font-bold hover:bg-blue-600 rounded-lg space-y-4 mt-8"
+      >
+        Spela igen
+      </button>
+    </div>
+    <div id="cards" class="grid gap-4 grid-cols-3 mb-6"></div>
+    <script src="game.js"></script>
+    <script>
+      // Vänta lite så HTML är helt klar
+      window.addEventListener("DOMContentLoaded", () => {
+        console.log("✅ HTML laddat!");
+        startGame();
+      });
+    </script>
+  </body>
 </html>
