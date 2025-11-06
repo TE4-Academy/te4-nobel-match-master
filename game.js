@@ -76,3 +76,33 @@ function checkMatch() {
   }
 }
  
+function renderCards() {
+    const container = document.getElementById("cards");
+    container.className = "grid gap-4 grid-cols-3";
+    container.innerHTML = "";
+
+    game.cards.forEach(card => {
+        const cardEl =document.createElement("div");
+        cardEl.className = "bg-gary-700 h-32 rounded-lg flex items-center justify-center text-lg cursor-pointer p-4"
+    
+        if (card.flipped || card.matched) {
+      cardEl.textContent = card.displayText;
+      cardEl.className = card.matched 
+        ? "bg-green-600 h-32 rounded-lg flex items-center justify-center text-lg p-4"
+        : "bg-blue-600 h-32 rounded-lg flex items-center justify-center text-lg p-4";
+    } else {
+      cardEl.textContent = "?";
+    }
+    
+    cardEl.onclick = () => {
+      flipCard(card.id);
+      renderCards();
+    };
+    
+    container.appendChild(cardEl);
+  });
+  
+  document.getElementById("moves").textContent = game.moves;
+  document.getElementById("matches").textContent = `${game.matches}/${game.pairsNeeded}`;
+}
+
