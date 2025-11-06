@@ -1,53 +1,45 @@
 const card_test = [
   { id: 1, name: "Marie Curie", achievement: "Radioaktivitet" },
   { id: 2, name: "Albert Einstein", achievement: "Fotoelektrisk effekt" },
-  { id: 3, name: "Ernest Hemingway", achievement: "Den gamle och havet" }
+  { id: 3, name: "Ernest Hemingway", achievement: "Den gamle och havet" },
 ];
 
 const game = {
-    cards:[],
-    filppedCards:[],
-    moves:0,
-    matches:0,
-    isFlipped:false,
-    timer:0,
-    timerintervall:null,
-    difficulty:"easy",
-    parisNeeded:3,
-
-
-
+  cards: [],
+  filppedCards: [],
+  moves: 0,
+  matches: 0,
+  isFlipped: false,
+  timer: 0,
+  timerintervall: null,
+  difficulty: "easy",
+  parisNeeded: 3,
 };
 
-
-
-function createNobelCards(){
-    const cards = [];
-    let id =0;
-    const selected = card_test.slice(0,3);
-    selected.forEach( NobelWinner => {
-        cards.push({
-            id:id++,
-            pariId:NobelWinner.id,
-            type:'name', 
-            displayText:NobelWinner.name,
-            matched:false,
-            flipped:false
-        });
+function createNobelCards() {
+  const cards = [];
+  let id = 0;
+  const selected = card_test.slice(0, 3);
+  selected.forEach((NobelWinner) => {
     cards.push({
-            id:id++,
-            pariId:NobelWinner.id,
-            type:'name', 
-            displayText:NobelWinner.achievement,
-            matched:false,
-            flipped:false
-
- });
- });
- return cards;
-    }
-
-
+      id: id++,
+      pariId: NobelWinner.id,
+      type: "name",
+      displayText: NobelWinner.name,
+      matched: false,
+      flipped: false,
+    });
+    cards.push({
+      id: id++,
+      pariId: NobelWinner.id,
+      type: "name",
+      displayText: NobelWinner.achievement,
+      matched: false,
+      flipped: false,
+    });
+  });
+  return cards;
+}
 
 function checkMatch() {
   const [id1, id2] = game.flippedCards;
@@ -63,19 +55,57 @@ function checkMatch() {
     game.matches++;
     game.flippedCards = [];
     checkWin();
-  } else{
+  } else {
     console.log("ingen match");
     game.isFlipping = true;
-    setTimeout(()=> {
-        card1.flipped = false;
-        card2.flipped = false;
-        game.flippedCards = [];
-        game.isFlipping = false;
-        renderCards();
+    setTimeout(() => {
+      card1.flipped = false;
+      card2.flipped = false;
+      game.flippedCards = [];
+      game.isFlipping = false;
+      renderCards();
     }, 1000);
   }
 }
  
+
+
+
+function flipCard(cardId) {
+  const card = game.cards.find((c) => c.id === cardId);
+
+  if (!card) {
+    console.log("kortet finns inte");
+    return;
+  }
+
+  if (card.flipped) {
+    console.log("kortet är redan vänt");
+    return;
+  }
+  
+  if (card.matched) {
+    console.log("kortet är redan matchat");
+    return;
+  }
+  if (game.flippedCards.length >=2  ) {
+    console.log("kortet inte vända");
+    return;
+  }
+  
+  if (game.isFlipping) {
+    console.log("Väntar på kort ska vändas tillbaka");
+    return;
+  }
+  
+card.flipped = true;
+  game.flippedCards.push(cardId);
+  renderCards();
+ if (game.flippedCards.length === 2) {
+    checkMatch();
+  }
+}
+
 function renderCards() {
     const container = document.getElementById("cards");
     container.className = "grid gap-4 grid-cols-3";
@@ -105,4 +135,3 @@ function renderCards() {
   document.getElementById("moves").textContent = game.moves;
   document.getElementById("matches").textContent = `${game.matches}/${game.pairsNeeded}`;
 }
-
