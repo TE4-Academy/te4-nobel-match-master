@@ -1,28 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://cdn.tailwindcss.com"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body class ="bg-gray-900 text-white min-h-screen p-8">
     
-<!-- STARTSKÄRM -->
- <div id="startScreen" class="max-w-2xl mx-auto text-center">
+<!--STARTSKÄRM-->
+<body class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+  <div id="startScreen" class="w-full max-w-md text-center">
     <h1 class="text-4xl font-bold mb-8">Nobel Match Master</h1>
     <div class="space-y-4">
-              <button data-difficulty="easy" class="bg-green-500 text-white px-8 py-4 font-bold hover:bg-green-600 rounded-lg w-64 block mx-auto">
-        Lätt (6 par)
+      <button game-difficulty="easy"
+        class="bg-green-500 text-white px-8 py-4 font-bold hover:bg-green-600 rounded-lg w-full sm:w-64 block mx-auto">
+        Enkel (6 par)
       </button>
-      <button data-difficulty="medium" class="bg-yellow-500 text-white px-8 py-4 font-bold hover:bg-yellow-600 rounded-lg w-64 block mx-auto">
+      <button game-difficulty="medium"
+        class="bg-yellow-500 text-white px-8 py-4 font-bold hover:bg-yellow-600 rounded-lg w-full sm:w-64 block mx-auto">
         Medel (9 par)
       </button>
-      <button data-difficulty="hard" class="bg-red-500 text-white px-8 py-4 font-bold hover:bg-red-600 rounded-lg w-64 block mx-auto">
+      <button game-difficulty="hard"
+        class="bg-red-500 text-white px-8 py-4 font-bold hover:bg-red-600 rounded-lg w-full sm:w-64 block mx-auto">
         Svår (12 par)
       </button>
-      <div>
+    </div>
+  </div>
+</body>
+
+
+<!--SPELSKÄRM-->
+  <div id="gameScreen" class="max-w-4xl mx-auto hidden">
+    <h1 class="text-3xl font-bold mb-6 text-center">Nobel Match Master</h1>
+    
+    <div class="bg-gray-800 p-6 rounded-lg mb-6">
+      <div class="flex gap-6 justify-center">
+        <div>Tid: <span id="timer" class="font-bold text-blue-400">0:00</span></div>
+        <div>Försök: <span id="attempts" class="font-bold text-yellow-400">0</span></div>
+        <div>Matchningar: <span id="matches" class="font-bold text-green-400">0/6</span></div>
+        <div>Poäng: <span id="score" class="font-bold text-purple-400">0</span></div>
       </div>
+    </div>
+        <div id="cardGrid" class="grid gap-4"></div>
+  </div>
+
+  <!--SLUTSKÄRM-->
+  <div id="endScreen" class="max-w-2xl mx-auto text-center hidden">
+    <h2 class="text-4xl font-bold mb-8 text-green-400">Grattis! 🎉</h2>
+    <div class="bg-gray-800 p-8 rounded-lg mb-6 space-y-4">
+      <p class="text-2xl">Poäng: <span id="finalScore" class="font-bold text-purple-400">0</span></p>
+      <p class="text-xl">Tid: <span id="finalTime" class="font-bold text-blue-400">0:00</span></p>
+      <p class="text-xl">Försök: <span id="finalAttempts" class="font-bold text-yellow-400">0</span></p>
+    </div>
+    <button id="playAgain" class="bg-blue-500 text-white px-8 py-4 font-bold hover:bg-blue-600 rounded-lg">
+      Spela igen
+    </button>
+  </div>
+
+  <script src="app.js"></script>
 
 
 </body>
+</html>
+
+
+<script src="game.js"></script>
+    </body>
+
 </html>
