@@ -118,6 +118,7 @@ function checkMatch() {
     }, 1000);
   }
 }
+}
 function finalizeScore() {
   let bonus = 0;
 
