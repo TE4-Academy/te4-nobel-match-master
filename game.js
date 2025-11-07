@@ -91,9 +91,7 @@ function checkMatch() {
       const minutes = Math.floor(game.timer / 60);
       const seconds = game.timer % 60;
       const timeFormatted = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-      setTimeout(() => {
-        alert(`🎉 Du vann!\nFörsök: ${game.moves}\nTid: ${timeFormatted}\nPoäng: ${finalScore}`);
-      }, 500);
+      setTimeout(() => showEndScreen(), 800);
     }
 
   } else {
@@ -111,7 +109,28 @@ function checkMatch() {
     }, 1000);
   }
 }
+function showEndScreen() {
+  const finalScore = finalizeScore();
+  const minutes = Math.floor(game.timer / 60);
+  const seconds = game.timer % 60;
+  const timeFormatted = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 
+  document.getElementById("gameScreen").classList.add("hidden");
+  
+  const endScreen = document.getElementById("endScreen");
+  endScreen.classList.remove("hidden");
+
+  document.getElementById("finalScore").textContent = finalScore;
+  document.getElementById("time").textContent = timeFormatted;
+  document.getElementById("finalAttempts").textContent = game.moves;
+
+  
+  document.getElementById("playAgain").onclick = () => {
+    endScreen.classList.add("hidden");
+    document.getElementById("gameScreen").classList.remove("hidden");
+    startGame();
+  };
+}
 function finalizeScore() {
   let bonus = 0;
 
