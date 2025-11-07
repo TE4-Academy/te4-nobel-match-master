@@ -90,18 +90,31 @@
     <script src="game.js"></script>
  <script>
 
-  async function init() {
-  
-    document.getElementById('startScreen').classList.add('hidden');
-    document.getElementById('gameScreen').classList.remove('hidden');
-    
-    
-    console.log("⏳ Initialiserar spel...");
-    await startGame();  
-  }
-  
- 
-  window.addEventListener('DOMContentLoaded', init);
+function setupDifficultyButtons() {
+  document.querySelectorAll("[game-difficulty]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const diff = btn.getAttribute("game-difficulty");
+      if (diff === "easy") game.pairsNeeded = 6;
+      if (diff === "medium") game.pairsNeeded = 9;
+      if (diff === "hard") game.pairsNeeded = 12;
+
+      // Göm startskärmen och visa spelet
+      document.getElementById('startScreen').classList.add('hidden');
+      document.getElementById('gameScreen').classList.remove('hidden');
+
+      startGame();
+    });
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  // Visa startskärmen
+  document.getElementById('startScreen').classList.remove('hidden');
+
+  // Koppla svårighetsknappar
+  setupDifficultyButtons();
+});
+
 </script>
    
   </body>
