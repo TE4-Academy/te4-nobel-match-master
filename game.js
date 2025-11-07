@@ -80,7 +80,10 @@ function checkMatch() {
     card2.matched = true;
     game.matches++;
     game.flippedCards = [];
-   
+     renderCards();
+   if (game.matches === game.pairsNeeded) {
+      setTimeout(() => alert(`🎉 Grattis! Du vann på ${game.moves} drag!`), 500);
+    }
   } else {
     console.log("ingen match");
     game.isFlipping = true;
@@ -89,7 +92,8 @@ function checkMatch() {
       card2.flipped = false;
       game.flippedCards = [];
       game.isFlipping = false;
-      renderCards();
+           renderCards();
+
     }, 1000);
   }
 }
@@ -123,9 +127,12 @@ function flipCard(cardId) {
 
   card.flipped = true;
   game.flippedCards.push(cardId);
-  renderCards();
+ 
   if (game.flippedCards.length === 2) {
+     renderCards();
     checkMatch();
+  } else {
+     renderCards();
   }
 }
 
