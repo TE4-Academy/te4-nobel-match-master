@@ -13,20 +13,19 @@ const game = {
 };
 
 async function loadNobelData() {
-  const response = await fetch('./nobel-data.json');
+  const response = await fetch("./nobel-data.json");
   const data = await response.json();
   nobelData = data.laureates;
   return nobelData;
-  
 }
-function shuffleCard (cards){
-    const shuffled = [...cards];
-    for (let i = shuffled.length -1; i>  0; i--){
-        const j = Math.floor(Math.random() * (i+ 1 ));
-  [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+function shuffleCard(cards) {
+  const shuffled = [...cards];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
 
-  return shuffled; 
+  return shuffled;
 }
 
 function createNobelCards() {
@@ -37,7 +36,7 @@ function createNobelCards() {
 
   const cards = [];
   let id = 0;
-   const selected = shuffleCard(nobelData).slice(0, game.pairsNeeded);
+  const selected = shuffleCard(nobelData).slice(0, game.pairsNeeded);
 
   selected.forEach((laureate) => {
     cards.push({
@@ -51,7 +50,6 @@ function createNobelCards() {
       flipped: false,
     });
 
-  
     cards.push({
       id: id++,
       pairId: laureate.id,
@@ -63,7 +61,7 @@ function createNobelCards() {
       flipped: false,
     });
   });
-  
+
   return shuffleCard(cards);
 }
 
@@ -80,9 +78,13 @@ function checkMatch() {
     card2.matched = true;
     game.matches++;
     game.flippedCards = [];
-     renderCards();
-   if (game.matches === game.pairsNeeded) {
-      setTimeout(() => alert(`🎉 Grattis! Du vann på ${game.moves} drag!`), 500);
+    renderCards();
+    if (game.matches === game.pairsNeeded) {
+      stopTimer();
+      setTimeout(
+        () => alert(`🎉 Grattis! Du vann på ${game.moves} drag!`),
+        500
+      );
     }
   } else {
     console.log("ingen match");
@@ -92,8 +94,7 @@ function checkMatch() {
       card2.flipped = false;
       game.flippedCards = [];
       game.isFlipping = false;
-           renderCards();
-
+      renderCards();
     }, 1000);
   }
 }
@@ -125,14 +126,20 @@ function flipCard(cardId) {
     return;
   }
 
+
+ if (game.moves === 0 && game.flippedCards.length === 0) {
+    startTimer();
+  }
+
+
   card.flipped = true;
   game.flippedCards.push(cardId);
- 
+
   if (game.flippedCards.length === 2) {
-     renderCards();
+    renderCards();
     checkMatch();
   } else {
-     renderCards();
+    renderCards();
   }
 }
 
@@ -150,7 +157,11 @@ function renderCards() {
       if (card.type === "person") {
         cardEl.innerHTML = `
           <div class="flex flex-col items-center gap-2 text-center">
-            ${card.imageUrl ? `<img src="${card.imageUrl}" class="w-16 h-16 rounded-full object-cover" alt="${card.name}">` : ''}
+            ${
+              card.imageUrl
+                ? `<img src="${card.imageUrl}" class="w-16 h-16 rounded-full object-cover" alt="${card.name}">`
+                : ""
+            }
             <div class="font-bold text-sm">${card.name}</div>
             <div class="text-xs">${card.country}</div>
           </div>
@@ -170,7 +181,8 @@ function renderCards() {
         : "bg-blue-600 h-40 rounded-lg flex items-center justify-center p-4 text-white";
     } else {
       cardEl.textContent = "?";
-      cardEl.className = "bg-gray-700 h-40 rounded-lg flex items-center justify-center text-4xl cursor-pointer hover:bg-gray-600";
+      cardEl.className =
+        "bg-gray-700 h-40 rounded-lg flex items-center justify-center text-4xl cursor-pointer hover:bg-gray-600";
     }
 
     cardEl.onclick = () => flipCard(card.id);
@@ -178,9 +190,24 @@ function renderCards() {
   });
 
   document.getElementById("attempts").textContent = game.moves;
-  document.getElementById("matches").textContent = `${game.matches}/${game.pairsNeeded}`;
+  document.getElementById(
+    "matches"
+  ).textContent = `${game.matches}/${game.pairsNeeded}`;
 }
 
+function startTimer() {
+  game.timer = 0;
+  clearInterval(game.timerInterval);
+  game.timerInterval = setInterval(() => {
+    game.timer++;
+    const mins = Math.floor(game.timer / 60 );
+    const secs = game.timer % 60;
+    document.getElementById("timer").textContent = `${mins}:${secs.toString().padStart(2, '0')}`;  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(game.timerInterval);
+}
 
 async function startGame() {
   console.log("🎮 Startar spel...");
@@ -201,10 +228,8 @@ async function startGame() {
   game.moves = 0;
   game.matches = 0;
   game.isFlipping = false;
+  game.timer = 0;
 
   renderCards();
-
   console.log("✅ Spelet är klart!");
 }
-
-
