@@ -10,23 +10,23 @@ const game = {
   timerInterval: null,
   difficulty: "easy",
   pairsNeeded: 3,
+  score: 0,
 };
 
 async function loadNobelData() {
-  const response = await fetch('./nobel-data.json');
+  const response = await fetch("./nobel-data.json");
   const data = await response.json();
   nobelData = data.laureates;
   return nobelData;
-  
 }
-function shuffleCard (cards){
-    const shuffled = [...cards];
-    for (let i = shuffled.length -1; i>  0; i--){
-        const j = Math.floor(Math.random() * (i+ 1 ));
-  [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+function shuffleCard(cards) {
+  const shuffled = [...cards];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
 
-  return shuffled; 
+  return shuffled;
 }
 
 function createNobelCards() {
@@ -37,7 +37,7 @@ function createNobelCards() {
 
   const cards = [];
   let id = 0;
-   const selected = shuffleCard(nobelData).slice(0, game.pairsNeeded);
+  const selected = shuffleCard(nobelData).slice(0, game.pairsNeeded);
 
   selected.forEach((laureate) => {
     cards.push({
@@ -51,7 +51,6 @@ function createNobelCards() {
       flipped: false,
     });
 
-  
     cards.push({
       id: id++,
       pairId: laureate.id,
@@ -63,7 +62,7 @@ function createNobelCards() {
       flipped: false,
     });
   });
-  
+
   return shuffleCard(cards);
 }
 
@@ -79,24 +78,63 @@ function checkMatch() {
     card1.matched = true;
     card2.matched = true;
     game.matches++;
+    game.score += 100;
     game.flippedCards = [];
-     renderCards();
-   if (game.matches === game.pairsNeeded) {
-      setTimeout(() => alert(`🎉 Grattis! Du vann på ${game.moves} drag!`), 500);
+
+    renderCards();
+    document.getElementById("score").textContent = game.score;
+
+    if (game.matches === game.pairsNeeded) {
+      clearInterval(game.timerInterval);
+      const finalScore = finalizeScore();
+      const minutes = Math.floor(game.timer / 60);
+      const seconds = game.timer % 60;
+      const timeFormatted = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+      setTimeout(() => {
+        alert(`🎉 Du vann!\nFörsök: ${game.moves}\nTid: ${timeFormatted}\nPoäng: ${finalScore}`);
+      }, 500);
     }
+
   } else {
-    console.log("ingen match");
+    
+    game.score -= 10; 
+    if (game.score < 0) game.score = 0; 
+    document.getElementById("score").textContent = game.score;
+
     game.isFlipping = true;
     setTimeout(() => {
       card1.flipped = false;
       card2.flipped = false;
       game.flippedCards = [];
       game.isFlipping = false;
-           renderCards();
-
+      renderCards();
     }, 1000);
   }
 }
+function finalizeScore() {
+  let bonus = 0;
+
+  
+  if (game.timer < 60) bonus += 100;
+  else if (game.timer < 120) bonus += 50;
+  else if (game.timer < 180) bonus += 25;
+
+  
+  if (game.moves === game.pairsNeeded) bonus += 200;
+
+  
+  let maxBase = 0;
+  switch (game.difficulty) {
+    case "easy": maxBase = 600; break;
+    case "medium": maxBase = 900; break;
+    case "hard": maxBase = 1200; break;
+  }
+
+  
+  const final = Math.min(game.score + bonus, maxBase + 300);
+  return final;
+}
+
 
 function flipCard(cardId) {
   const card = game.cards.find((c) => c.id === cardId);
@@ -127,12 +165,12 @@ function flipCard(cardId) {
 
   card.flipped = true;
   game.flippedCards.push(cardId);
- 
+
   if (game.flippedCards.length === 2) {
-     renderCards();
+    renderCards();
     checkMatch();
   } else {
-     renderCards();
+    renderCards();
   }
 }
 
@@ -150,7 +188,11 @@ function renderCards() {
       if (card.type === "person") {
         cardEl.innerHTML = `
           <div class="flex flex-col items-center gap-2 text-center">
-            ${card.imageUrl ? `<img src="${card.imageUrl}" class="w-16 h-16 rounded-full object-cover" alt="${card.name}">` : ''}
+            ${
+              card.imageUrl
+                ? `<img src="${card.imageUrl}" class="w-16 h-16 rounded-full object-cover" alt="${card.name}">`
+                : ""
+            }
             <div class="font-bold text-sm">${card.name}</div>
             <div class="text-xs">${card.country}</div>
           </div>
@@ -170,7 +212,8 @@ function renderCards() {
         : "bg-blue-600 h-40 rounded-lg flex items-center justify-center p-4 text-white";
     } else {
       cardEl.textContent = "?";
-      cardEl.className = "bg-gray-700 h-40 rounded-lg flex items-center justify-center text-4xl cursor-pointer hover:bg-gray-600";
+      cardEl.className =
+        "bg-gray-700 h-40 rounded-lg flex items-center justify-center text-4xl cursor-pointer hover:bg-gray-600";
     }
 
     cardEl.onclick = () => flipCard(card.id);
@@ -178,9 +221,10 @@ function renderCards() {
   });
 
   document.getElementById("attempts").textContent = game.moves;
-  document.getElementById("matches").textContent = `${game.matches}/${game.pairsNeeded}`;
+  document.getElementById(
+    "matches"
+  ).textContent = `${game.matches}/${game.pairsNeeded}`;
 }
-
 
 async function startGame() {
   console.log("🎮 Startar spel...");
@@ -201,10 +245,13 @@ async function startGame() {
   game.moves = 0;
   game.matches = 0;
   game.isFlipping = false;
+  game.score = 0;
+  document.getElementById("score").textContent = 0;
+  
+
+
 
   renderCards();
 
   console.log("✅ Spelet är klart!");
 }
-
-
