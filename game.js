@@ -10,6 +10,7 @@ const game = {
   timerInterval: null,
   difficulty: "easy",
   pairsNeeded: 3,
+  score: 0,
 };
 
 async function loadNobelData() {
@@ -77,6 +78,7 @@ function checkMatch() {
     card1.matched = true;
     card2.matched = true;
     game.matches++;
+    game.score += 100;
     game.flippedCards = [];
     renderCards();
     if (game.matches === game.pairsNeeded) {
@@ -85,9 +87,27 @@ function checkMatch() {
         () => alert(`🎉 Grattis! Du vann på ${game.moves} drag!`),
         500
       );
+
+    renderCards();
+    document.getElementById("score").textContent = game.score;
+
+    if (game.matches === game.pairsNeeded) {
+      clearInterval(game.timerInterval);
+      const finalScore = finalizeScore();
+      const minutes = Math.floor(game.timer / 60);
+      const seconds = game.timer % 60;
+      const timeFormatted = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+      setTimeout(() => {
+        alert(`🎉 Du vann!\nFörsök: ${game.moves}\nTid: ${timeFormatted}\nPoäng: ${finalScore}`);
+      }, 500);
     }
+
   } else {
-    console.log("ingen match");
+    
+    game.score -= 10; 
+    if (game.score < 0) game.score = 0; 
+    document.getElementById("score").textContent = game.score;
+
     game.isFlipping = true;
     setTimeout(() => {
       card1.flipped = false;
@@ -98,6 +118,30 @@ function checkMatch() {
     }, 1000);
   }
 }
+function finalizeScore() {
+  let bonus = 0;
+
+  
+  if (game.timer < 60) bonus += 100;
+  else if (game.timer < 120) bonus += 50;
+  else if (game.timer < 180) bonus += 25;
+
+  
+  if (game.moves === game.pairsNeeded) bonus += 200;
+
+  
+  let maxBase = 0;
+  switch (game.difficulty) {
+    case "easy": maxBase = 600; break;
+    case "medium": maxBase = 900; break;
+    case "hard": maxBase = 1200; break;
+  }
+
+  
+  const final = Math.min(game.score + bonus, maxBase + 300);
+  return final;
+}
+
 
 function flipCard(cardId) {
   const card = game.cards.find((c) => c.id === cardId);
@@ -229,6 +273,11 @@ async function startGame() {
   game.matches = 0;
   game.isFlipping = false;
   game.timer = 0;
+  game.score = 0;
+  document.getElementById("score").textContent = 0;
+  
+
+
 
   renderCards();
   console.log("✅ Spelet är klart!");
