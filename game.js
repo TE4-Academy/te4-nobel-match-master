@@ -37,7 +37,7 @@ function createNobelCards() {
 
   const cards = [];
   let id = 0;
-  const selected = nobelData.slice(0, game.pairsNeeded);
+   const selected = shuffleCard(nobelData).slice(0, game.pairsNeeded);
 
   selected.forEach((laureate) => {
     cards.push({
