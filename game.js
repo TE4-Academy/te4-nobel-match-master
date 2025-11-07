@@ -1,8 +1,4 @@
-const card_test = [
-  { id: 1, name: "Marie Curie", achievement: "Radioaktivitet" },
-  { id: 2, name: "Albert Einstein", achievement: "Fotoelektrisk effekt" },
-  { id: 3, name: "Ernest Hemingway", achievement: "Den gamle och havet" },
-];
+let nobelData = [];
 
 const game = {
   cards: [],
@@ -16,6 +12,13 @@ const game = {
   pairsNeeded: 3,
 };
 
+async function loadNobelData() {
+  const response = await fetch('./nobel-data.json');
+  const data = await response.json();
+  nobelData = data.laureates;
+  return nobelData;
+  
+  
 function shuffleCard (cards){
     const shuffled = [...cards];
     for (let i = shuffled.length -1; i>  0; i--){
@@ -27,23 +30,35 @@ function shuffleCard (cards){
 }
 
 function createNobelCards() {
+  if (!nobelData || nobelData.length === 0) {
+    console.error("nobelData är tom eller undefined!");
+    return [];
+  }
+
   const cards = [];
   let id = 0;
-  const selected = card_test.slice(0, 3);
-  selected.forEach((NobelWinner) => {
+  const selected = nobelData.slice(0, game.pairsNeeded);
+
+  selected.forEach((laureate) => {
     cards.push({
       id: id++,
-      pairId: NobelWinner.id,
-      type: "name",
-      displayText: NobelWinner.name,
+      pairId: laureate.id,
+      type: "person",
+      name: laureate.name,
+      country: laureate.country,
+      imageUrl: laureate.imageUrl,
       matched: false,
       flipped: false,
     });
+
+  
     cards.push({
       id: id++,
-      pairId: NobelWinner.id,
+      pairId: laureate.id,
       type: "achievement",
-      displayText: NobelWinner.achievement,
+      category: laureate.category,
+      achievement: laureate.achievement,
+      year: laureate.year,
       matched: false,
       flipped: false,
     });
@@ -147,11 +162,21 @@ function renderCards() {
   ).textContent = `${game.matches}/${game.pairsNeeded}`;
 }
 
-function startGame() {
+async function startGame() {
   console.log("🎮 Startar spel...");
+
+  if (nobelData.length === 0) {
+    console.log("📥 Laddar data först...");
+    await loadNobelData();
+    console.log("✅ Data laddad! nobelData.length:", nobelData.length);
+  }
 
   game.cards = createNobelCards();
 
+  if (game.cards.length === 0) {
+    console.error("❌ Inga kort skapades!");
+    return;
+  }
   game.flippedCards = [];
   game.moves = 0;
   game.matches = 0;
