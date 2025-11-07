@@ -80,18 +80,12 @@ function checkMatch() {
     game.matches++;
     game.score += 100;
     game.flippedCards = [];
-    renderCards();
-    if (game.matches === game.pairsNeeded) {
-      stopTimer();
-      setTimeout(
-        () => alert(`🎉 Grattis! Du vann på ${game.moves} drag!`),
-        500
-      );
 
     renderCards();
     document.getElementById("score").textContent = game.score;
 
     if (game.matches === game.pairsNeeded) {
+      stopTimer();
       clearInterval(game.timerInterval);
       const finalScore = finalizeScore();
       const minutes = Math.floor(game.timer / 60);
@@ -105,7 +99,6 @@ function checkMatch() {
   } else {
     
     game.score -= 10; 
-    if (game.score < 0) game.score = 0; 
     document.getElementById("score").textContent = game.score;
 
     game.isFlipping = true;
@@ -118,7 +111,7 @@ function checkMatch() {
     }, 1000);
   }
 }
-}
+
 function finalizeScore() {
   let bonus = 0;
 
@@ -276,10 +269,9 @@ async function startGame() {
   game.timer = 0;
   game.score = 0;
   document.getElementById("score").textContent = 0;
-  
-
+ document.getElementById("timer").textContent = "0:00";
 
 
   renderCards();
-  console.log("✅ Spelet är klart!");
+  
 }
