@@ -80,6 +80,13 @@ function checkMatch() {
     game.matches++;
     game.score += 100;
     game.flippedCards = [];
+    renderCards();
+    if (game.matches === game.pairsNeeded) {
+      stopTimer();
+      setTimeout(
+        () => alert(`🎉 Grattis! Du vann på ${game.moves} drag!`),
+        500
+      );
 
     renderCards();
     document.getElementById("score").textContent = game.score;
@@ -163,6 +170,12 @@ function flipCard(cardId) {
     return;
   }
 
+
+ if (game.moves === 0 && game.flippedCards.length === 0) {
+    startTimer();
+  }
+
+
   card.flipped = true;
   game.flippedCards.push(cardId);
 
@@ -226,6 +239,20 @@ function renderCards() {
   ).textContent = `${game.matches}/${game.pairsNeeded}`;
 }
 
+function startTimer() {
+  game.timer = 0;
+  clearInterval(game.timerInterval);
+  game.timerInterval = setInterval(() => {
+    game.timer++;
+    const mins = Math.floor(game.timer / 60 );
+    const secs = game.timer % 60;
+    document.getElementById("timer").textContent = `${mins}:${secs.toString().padStart(2, '0')}`;  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(game.timerInterval);
+}
+
 async function startGame() {
   console.log("🎮 Startar spel...");
 
@@ -245,6 +272,7 @@ async function startGame() {
   game.moves = 0;
   game.matches = 0;
   game.isFlipping = false;
+  game.timer = 0;
   game.score = 0;
   document.getElementById("score").textContent = 0;
   
@@ -252,6 +280,5 @@ async function startGame() {
 
 
   renderCards();
-
   console.log("✅ Spelet är klart!");
 }
