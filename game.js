@@ -16,6 +16,16 @@ const game = {
   pairsNeeded: 3,
 };
 
+function shuffleCard (cards){
+    const shuffled = [...cards];
+    for (let i = shuffled.length -1; i>  0; i--){
+        const j = Math.floor(Math.random() * (i+ 1 ));
+  [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled; 
+}
+
 function createNobelCards() {
   const cards = [];
   let id = 0;
@@ -38,7 +48,8 @@ function createNobelCards() {
       flipped: false,
     });
   });
-  return cards;
+  
+  return shuffleCard(cards);
 }
 
 function checkMatch() {
@@ -150,3 +161,5 @@ function startGame() {
 
   console.log("✅ Spelet är klart!");
 }
+
+
