@@ -181,7 +181,6 @@ function renderCards() {
   document.getElementById("matches").textContent = `${game.matches}/${game.pairsNeeded}`;
 }
 
-
 async function startGame() {
   console.log("🎮 Startar spel...");
 
@@ -205,6 +204,5 @@ async function startGame() {
   renderCards();
 
   console.log("✅ Spelet är klart!");
+  document.getElementById("endScreen")
 }
-
-
