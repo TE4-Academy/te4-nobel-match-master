@@ -21,30 +21,30 @@
 - [x] Antal försök räknas
 - [x] Antal matchningar uppdateras
 - [x] Prevent clicks under pågående flip/match
-- [] Spelet avslutas när alla par är hittade
-- [ ] Slutskärm visas med resultat
+- [x] Spelet avslutas när alla par är hittade
+- [x] Slutskärm visas med resultat
 
 ---
 
 ### ⏱️ Tid och poäng
-- [ ] Timer startar när spelet börjar
-- [ ] Timer pausas när spelet slutar
-- [ ] Tid visas i `mm:ss`-format i UI
-- [ ] Poäng räknas ut enligt tabellen i instruktionerna:
-  - Maxpoäng per svårighetsgrad
+- [x] Timer startar när spelet börjar
+- [x] Timer pausas när spelet slutar
+- [x] Tid visas i `mm:ss`-format i UI
+- [x] Poäng räknas ut enligt tabellen i instruktionerna:
+  -Maxpoäng per svårighetsgrad
   - -10p per försök över gräns
   - +bonus för snabb tid
   - +200p för perfekt game
-- [ ] Slutskärmen visar tid, försök och total poäng
-- [ ] Poäng visas löpande under spelet (valfritt)
+- [x] Slutskärmen visar tid, försök och total poäng
+- [x] Poäng visas löpande under spelet (valfritt)
 
 ---
 
 ### 🔁 Spelkontroller
-- [ ] “Spela igen”-knapp återställer spelet
-- [ ] Alla kort och räknare nollställs korrekt
-- [ ] Startskärmen visas igen efter avslutat spel
-- [ ] Inga buggar vid flera omstarter
+- [x] “Spela igen”-knapp återställer spelet
+- [x] Alla kort och räknare nollställs korrekt
+- [x] Startskärmen visas igen efter avslutat spel
+- [x] Inga buggar vid flera omstarter
 
 ---
 
