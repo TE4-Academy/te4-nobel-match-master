@@ -8,8 +8,8 @@
 ## 🧩 MVP – Grundfunktioner
 
 ### 🕹️ Spelmekanik
-- [ ] Startskärm med val av svårighetsgrad (Lätt, Medel, Svår)
-- [ ] `startGame()` startar korrekt baserat på vald svårighetsgrad
+- [x] Startskärm med val av svårighetsgrad (Lätt, Medel, Svår)
+- [x] `startGame()` startar korrekt baserat på vald svårighetsgrad
 - [x] Kort hämtas från `nobel-data.json`
 - [x] Slumpmässigt urval från alla 75 pristagare
 - [x] Fisher-Yates shuffle fungerar korrekt
@@ -83,9 +83,9 @@
 - [x] Hämta JSON-data via `fetch()`
 - [x] Hantera fel vid laddning (t.ex. `try/catch`)
 - [x] Strukturera data i två kort per pristagare (person + achievement)
-- [ ] Spara highscore i LocalStorage
-- [ ] Leaderboard visar top 10 per svårighetsgrad
-- [ ] Möjlighet att ange namn vid score submission
+- [x] Spara highscore i LocalStorage
+- [x] Leaderboard visar top 10 per svårighetsgrad
+- [x] Möjlighet att ange namn vid score submission
 - [ ] Leaderboard filtrerbar efter snabbast tid / högst poäng
 
 ---
@@ -136,7 +136,7 @@
 ## 🚀 Deployment
 
 - [x] Projektet körs lokalt med `Live Server`
-- [ ] Testat att funka efter page reload
+- [x] Testat att funka efter page reload
 - [ ] Netlify-konto skapat
 - [ ] Projektet deployat till Netlify
 - [ ] `README.md` innehåller:

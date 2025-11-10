@@ -21,7 +21,7 @@ function saveHighScore(playerName, score, time, moves, difficulty) {
     // Sortera efter poäng (högst först)
     highscores.sort((a, b) => {
       if (b.score === a.score) {
-        return a.time - b.time; // Om poängen är lika sortera efter tid 
+        return a.time - b.time; // Om poängen är lika sortera efter tid
       }
       return b.score - a.score;
     });
@@ -56,10 +56,18 @@ function getHighScoresByDifficulty(difficulty) {
     .sort((a, b) => {
       if (b.score === a.score) {
         return a.time - b.time; // Om poängen är lika sortera efter tid
-    }
-       return b.score - a.score;
-  })
+      }
+      return b.score - a.score;
+    })
     .slice(0, 10); // Top 10
+}
+// Hämtar highscores för en specifik svårighetsgrad sorterat efter tid
+function getHighScoresByDifficultyAndTime(difficulty) {
+  const allScores = getHighScores();
+  return allScores
+    .filter((score) => score.difficulty === difficulty)
+    .sort((a, b) => a.time - b.time) // Snabbast tid först
+    .slice(0, 10);
 }
 
 // Hittar placeringen för ett specifikt score
