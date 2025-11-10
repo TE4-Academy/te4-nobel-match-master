@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body class="bg-gray-900 text-white min-h-screen p-8">
+  <body class="bg-gray-900 text-white min-h-screen p-8 p-4 flex items-center justify-center">
     <!--STARTSKÄRM-->
     <div id="startScreen" class="w-full max-w-md text-center">
       <h1 class="text-4xl font-bold mb-8">Nobel Match Master</h1>
@@ -78,15 +78,48 @@
           Försök:
           <span id="finalAttempts" class="font-bold text-yellow-400">0</span>
         </div>
+        <div>
+        Leaderboard placering:
+        <span id="Leaderboard" class="font-bold text-purple-400">0</span>
+      </div>
       </div>
       <button
         id="playAgain"
         class="bg-blue-500 text-white px-8 py-4 font-bold hover:bg-blue-600 rounded-lg space-y-4 mt-8"
-      >
+        >
         Spela igen
       </button>
     </div>
     <div id="cards" class="grid gap-4 grid-cols-3 mb-6"></div>
+
+    <!--SVÅRIGHETSGRADMENY-->
+ <script>
+function setupDifficultyButtons() {
+  document.querySelectorAll("[game-difficulty]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const diff = btn.getAttribute("game-difficulty");
+      if (diff === "easy") game.pairsNeeded = 6;
+      if (diff === "medium") game.pairsNeeded = 9;
+      if (diff === "hard") game.pairsNeeded = 12;
+
+      // Göm startskärmen och visa spelet
+      document.getElementById('startScreen').classList.add('hidden');
+      document.getElementById('gameScreen').classList.remove('hidden');
+
+      startGame();
+    });
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  // Visa startskärmen
+  document.getElementById('startScreen').classList.remove('hidden');
+
+  // Koppla svårighetsknappar
+  setupDifficultyButtons();
+});
+
+</script>
     <script src="utils.js"></script>
     <script src="data.js"></script>
     <script src="storage.js"></script>
