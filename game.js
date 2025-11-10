@@ -11,6 +11,7 @@ const game = {
   difficulty: "easy",
   pairsNeeded: 3,
   score: 0,
+  playerName: "",
 };
 
 
@@ -181,14 +182,22 @@ function stopTimer() {
   clearInterval(game.timerInterval);
 }
 
-async function startGame() {
+async function startGame(difficulty, playerName) {
   console.log("🎮 Startar spel...");
 
   if (nobelData.length === 0) {
     console.log("📥 Laddar data först...");
     await loadNobelData();
-    console.log("✅ Data laddad! nobelData.length:", nobelData.length);
+   console.log("✅ Data laddad! nobelData.length:", nobelData.length);
   }
+
+  game.difficulty = difficulty || "easy";
+  game.playerName = playerName || "Anonym";
+ 
+  if (difficulty === "easy") game.pairsNeeded = 6;
+  else if (difficulty === "medium") game.pairsNeeded = 9;
+  else if (difficulty === "hard") game.pairsNeeded = 12;
+ 
 
   game.cards = createNobelCards();
 
