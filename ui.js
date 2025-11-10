@@ -84,16 +84,25 @@ function showEndScreen() {
     document.getElementById("startScreen").classList.remove("hidden");
   };
 }
-function showLeaderboard(difficulty = "easy") {
+// Visar leaderboard-skärmen
+function showLeaderboard(difficulty = "easy", sortBy = 'score') {
   document.getElementById("startScreen").classList.add("hidden");
   document.getElementById("leaderboardScreen").classList.remove("hidden");
 
-  renderLeaderboard(difficulty);
+  renderLeaderboard(difficulty, sortBy);
 }
 
 // Renderar leaderboard-listan
-function renderLeaderboard(difficulty) {
-  const scores = getHighScoresByDifficulty(difficulty);
+function renderLeaderboard(difficulty, sortBy = 'score') {
+  let scores;
+  
+  // Hämta scores baserat på sortering
+  if (sortBy === 'time') {
+    scores = getHighScoresByDifficultyAndTime(difficulty);
+  } else {
+    scores = getHighScoresByDifficulty(difficulty);
+  }
+  
   const container = document.getElementById("leaderboardList");
 
   if (scores.length === 0) {
