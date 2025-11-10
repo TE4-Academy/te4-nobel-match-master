@@ -56,7 +56,7 @@ function showEndScreen() {
   const timeFormatted = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 
   document.getElementById("gameScreen").classList.add("hidden");
-  
+
   const endScreen = document.getElementById("endScreen");
   endScreen.classList.remove("hidden");
 
@@ -64,10 +64,71 @@ function showEndScreen() {
   document.getElementById("time").textContent = timeFormatted;
   document.getElementById("finalAttempts").textContent = game.moves;
 
-  
+  // Spara till leaderboard och visa placering
+  const rank = saveHighScore(
+    game.playerName,
+    finalScore,
+    game.timer,
+    game.moves,
+    game.difficulty
+  );
+
+  if (rank > 0) {
+    document.getElementById("leaderboardRank").textContent = `#${rank}`;
+  } else {
+    document.getElementById("leaderboardRank").textContent = "-";
+  }
+
   document.getElementById("playAgain").onclick = () => {
     endScreen.classList.add("hidden");
-    document.getElementById("gameScreen").classList.remove("hidden");
-    startGame();
+    document.getElementById("startScreen").classList.remove("hidden");
   };
+}
+function showLeaderboard(difficulty = "easy") {
+  document.getElementById("startScreen").classList.add("hidden");
+  document.getElementById("leaderboardScreen").classList.remove("hidden");
+
+  renderLeaderboard(difficulty);
+}
+
+// Renderar leaderboard-listan
+function renderLeaderboard(difficulty) {
+  const scores = getHighScoresByDifficulty(difficulty);
+  const container = document.getElementById("leaderboardList");
+
+  if (scores.length === 0) {
+    container.innerHTML = '<p class="text-gray-400">Inga scores ännu!</p>';
+    return;
+  }
+
+  let html = '<div class="space-y-3">';
+
+  scores.forEach((score, index) => {
+    const rank = index + 1;
+    const medalEmoji =
+      rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : "";
+    const minutes = Math.floor(score.time / 60);
+    const seconds = score.time % 60;
+    const timeStr = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+    html += `
+      <div class="flex items-center justify-between p-4 bg-gray-700 rounded-lg">
+        <div class="flex items-center gap-4">
+          <span class="text-2xl font-bold text-gray-400">${
+            medalEmoji || rank
+          }</span>
+          <div class="text-left">
+            <div class="font-bold text-white">${score.name}</div>
+            <div class="text-sm text-gray-400">${timeStr} • ${
+      score.moves
+    } försök</div>
+          </div>
+        </div>
+        <div class="text-2xl font-bold text-yellow-400">${score.score}</div>
+      </div>
+    `;
+  });
+
+  html += "</div>";
+  container.innerHTML = html;
 }
