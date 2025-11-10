@@ -6,24 +6,29 @@ const STORAGE_KEY = "nobel-match-highscores";
 function saveHighScore(playerName, score, time, moves, difficulty) {
   try {
     const highscores = getHighScores();
-    
+
     const newScore = {
       name: playerName,
       score: score,
       time: time,
       moves: moves,
       difficulty: difficulty,
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
     };
-    
+
     highscores.push(newScore);
-    
+
     // Sortera efter poäng (högst först)
-    highscores.sort((a, b) => b.score - a.score);
-    
+    highscores.sort((a, b) => {
+      if (b.score === a.score) {
+        return a.time - b.time; // Om poängen är lika sortera efter tid 
+      }
+      return b.score - a.score;
+    });
+
     localStorage.setItem(STORAGE_KEY, JSON.stringify(highscores));
     console.log("✅ Highscore sparad!");
-    
+
     // Returnera placeringen för detta score
     return getScoreRank(newScore, difficulty);
   } catch (error) {
@@ -47,8 +52,13 @@ function getHighScores() {
 function getHighScoresByDifficulty(difficulty) {
   const allScores = getHighScores();
   return allScores
-    .filter(score => score.difficulty === difficulty)
-    .sort((a, b) => b.score - a.score)
+    .filter((score) => score.difficulty === difficulty)
+    .sort((a, b) => {
+      if (b.score === a.score) {
+        return a.time - b.time; // Om poängen är lika sortera efter tid
+    }
+       return b.score - a.score;
+  })
     .slice(0, 10); // Top 10
 }
 
@@ -56,16 +66,18 @@ function getHighScoresByDifficulty(difficulty) {
 // Hittar placeringen för ett specifikt score
 function getScoreRank(scoreObj, difficulty) {
   const scores = getHighScoresByDifficulty(difficulty);
-  
+
   // Hitta index för detta score
   for (let i = 0; i < scores.length; i++) {
-    if (scores[i].name === scoreObj.name && 
-        scores[i].score === scoreObj.score && 
-        scores[i].time === scoreObj.time) {
+    if (
+      scores[i].name === scoreObj.name &&
+      scores[i].score === scoreObj.score &&
+      scores[i].time === scoreObj.time
+    ) {
       return i + 1; // Returnera placering (1-indexed)
     }
   }
-  
+
   return -1; // Inte hittad
 }
 
