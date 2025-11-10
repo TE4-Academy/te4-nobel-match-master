@@ -87,22 +87,12 @@
       </button>
     </div>
     <div id="cards" class="grid gap-4 grid-cols-3 mb-6"></div>
+    <script src="utils.js"></script>
+    <script src="data.js"></script>
+    <script src="storage.js"></script>
     <script src="game.js"></script>
- <script>
-
-  async function init() {
-  
-    document.getElementById('startScreen').classList.add('hidden');
-    document.getElementById('gameScreen').classList.remove('hidden');
-    
-    
-    console.log("⏳ Initialiserar spel...");
-    await startGame();  
-  }
-  
- 
-  window.addEventListener('DOMContentLoaded', init);
-</script>
+    <script src="ui.js"></script>
+    <script src="main.js"></script>
    
   </body>
 </html>
