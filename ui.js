@@ -5,7 +5,7 @@ function renderCards() {
   container.className = "grid gap-4 grid-cols-3";
   container.innerHTML = "";
 
-  game.cards.forEach((card) => {
+ game.cards.forEach((card) => {
     const cardEl = document.createElement("div");
 
     if (card.flipped || card.matched) {

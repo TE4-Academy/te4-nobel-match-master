@@ -86,7 +86,7 @@
 - [x] Spara highscore i LocalStorage
 - [x] Leaderboard visar top 10 per svårighetsgrad
 - [x] Möjlighet att ange namn vid score submission
-- [ ] Leaderboard filtrerbar efter snabbast tid / högst poäng
+- [x] Leaderboard filtrerbar efter snabbast tid / högst poäng
 
 ---
 
