@@ -8,8 +8,8 @@
 ## 🧩 MVP – Grundfunktioner
 
 ### 🕹️ Spelmekanik
-- [ ] Startskärm med val av svårighetsgrad (Lätt, Medel, Svår)
-- [ ] `startGame()` startar korrekt baserat på vald svårighetsgrad
+- [x] Startskärm med val av svårighetsgrad (Lätt, Medel, Svår)
+- [x] `startGame()` startar korrekt baserat på vald svårighetsgrad
 - [x] Kort hämtas från `nobel-data.json`
 - [x] Slumpmässigt urval från alla 75 pristagare
 - [x] Fisher-Yates shuffle fungerar korrekt
@@ -21,30 +21,30 @@
 - [x] Antal försök räknas
 - [x] Antal matchningar uppdateras
 - [x] Prevent clicks under pågående flip/match
-- [] Spelet avslutas när alla par är hittade
-- [ ] Slutskärm visas med resultat
+- [x] Spelet avslutas när alla par är hittade
+- [x] Slutskärm visas med resultat
 
 ---
 
 ### ⏱️ Tid och poäng
-- [ ] Timer startar när spelet börjar
-- [ ] Timer pausas när spelet slutar
-- [ ] Tid visas i `mm:ss`-format i UI
-- [ ] Poäng räknas ut enligt tabellen i instruktionerna:
-  - Maxpoäng per svårighetsgrad
+- [x] Timer startar när spelet börjar
+- [x] Timer pausas när spelet slutar
+- [x] Tid visas i `mm:ss`-format i UI
+- [x] Poäng räknas ut enligt tabellen i instruktionerna:
+  -Maxpoäng per svårighetsgrad
   - -10p per försök över gräns
   - +bonus för snabb tid
   - +200p för perfekt game
-- [ ] Slutskärmen visar tid, försök och total poäng
-- [ ] Poäng visas löpande under spelet (valfritt)
+- [x] Slutskärmen visar tid, försök och total poäng
+- [x] Poäng visas löpande under spelet (valfritt)
 
 ---
 
 ### 🔁 Spelkontroller
-- [ ] “Spela igen”-knapp återställer spelet
-- [ ] Alla kort och räknare nollställs korrekt
-- [ ] Startskärmen visas igen efter avslutat spel
-- [ ] Inga buggar vid flera omstarter
+- [x] “Spela igen”-knapp återställer spelet
+- [x] Alla kort och räknare nollställs korrekt
+- [x] Startskärmen visas igen efter avslutat spel
+- [x] Inga buggar vid flera omstarter
 
 ---
 
@@ -83,10 +83,10 @@
 - [x] Hämta JSON-data via `fetch()`
 - [x] Hantera fel vid laddning (t.ex. `try/catch`)
 - [x] Strukturera data i två kort per pristagare (person + achievement)
-- [ ] Spara highscore i LocalStorage
-- [ ] Leaderboard visar top 10 per svårighetsgrad
-- [ ] Möjlighet att ange namn vid score submission
-- [ ] Leaderboard filtrerbar efter snabbast tid / högst poäng
+- [x] Spara highscore i LocalStorage
+- [x] Leaderboard visar top 10 per svårighetsgrad
+- [x] Möjlighet att ange namn vid score submission
+- [x] Leaderboard filtrerbar efter snabbast tid / högst poäng
 
 ---
 
@@ -136,7 +136,7 @@
 ## 🚀 Deployment
 
 - [x] Projektet körs lokalt med `Live Server`
-- [ ] Testat att funka efter page reload
+- [x] Testat att funka efter page reload
 - [ ] Netlify-konto skapat
 - [ ] Projektet deployat till Netlify
 - [ ] `README.md` innehåller:
