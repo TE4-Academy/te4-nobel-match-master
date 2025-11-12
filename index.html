@@ -49,7 +49,7 @@
     <button
     id="showLeaderboardBtn"
     class="bg-purple-500 text-white px-8 py-4 font-bold hover:bg-purple-600 rounded-lg w-full sm:w-64"
-    >Visa Leaderboard</button>
+    >Leaderboard</button>
     </div>
   </div>
 
@@ -82,10 +82,16 @@
         </div>
       </div>
       <div id="cardGrid" class="grid gap-4"></div>
-      <button id="giveUpBtn" class="mt-4 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm">
-  Ge upp
+      
+    <!--GE UPP-->
+
+<button id="giveUpBtn" class="mt-4 rounded-lg w-[70px] h-[56px] bg-no-repeat bg-contain bg-center border-none mt-8">
 </button>
 
+<script>
+  const btn = document.getElementById("giveUpBtn");
+  btn.style.backgroundImage = "url('https://media.discordapp.net/attachments/1407627762788733053/1438111968270618766/GeUppKnappPaintV1.png?ex=6915b1a4&is=69146024&hm=4cad02778efd064a1e67ec51ed1a50127ea2cccafc14e9249e09e5c774e096ac&=&format=webp&quality=lossless&width=743&height=560')";
+</script>
     </div>
 
     <!--SLUTSKÄRM-->
