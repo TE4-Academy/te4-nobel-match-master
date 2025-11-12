@@ -62,6 +62,8 @@ function checkMatch() {
 
   if (card1.pairId === card2.pairId) {
     console.log("MATCH");
+    gameSound.match.currentTime = 0;
+  gameSound.match.play().catch(e => console.log('Ljud blockerat'));
     card1.matched = true;
     card2.matched = true;
     game.matches++;
@@ -75,6 +77,8 @@ function checkMatch() {
       stopTimer();
       clearInterval(game.timerInterval);
       const finalScore = finalizeScore();
+        gameSound.win.currentTime = 0;
+    gameSound.win.play().catch(e => console.log('Ljud blockerat'));
       const minutes = Math.floor(game.timer / 60);
       const seconds = game.timer % 60;
       const timeFormatted = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
@@ -154,6 +158,8 @@ function flipCard(cardId) {
     startTimer();
   }
 
+gameSound.flip.currentTime = 0;
+gameSound.flip.play().catch(e => console.log('Ljud blockerat'));
 
   card.flipped = true;
   game.flippedCards.push(cardId);
