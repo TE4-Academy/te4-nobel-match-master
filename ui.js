@@ -60,6 +60,22 @@ function showEndScreen() {
   const endScreen = document.getElementById("endScreen");
   endScreen.classList.remove("hidden");
 
+   confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.6 }
+  });
+
+  if (game.moves === game.pairsNeeded) {
+    setTimeout(() => {
+      confetti({
+        particleCount: 150,
+        spread: 120,
+        origin: { y: 0.4 }
+      });
+    }, 500);
+  }
+
   document.getElementById("finalScore").textContent = finalScore;
   document.getElementById("time").textContent = timeFormatted;
   document.getElementById("finalAttempts").textContent = game.moves;
