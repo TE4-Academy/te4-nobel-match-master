@@ -1,5 +1,3 @@
-
-
 const game = {
   cards: [],
   flippedCards: [],
@@ -13,8 +11,6 @@ const game = {
   score: 0,
   playerName: "",
 };
-
-
 
 function createNobelCards() {
   if (!nobelData || nobelData.length === 0) {
@@ -99,15 +95,12 @@ function checkMatch() {
 
 function finalizeScore() {
   let bonus = 0;
-
   
   if (game.timer < 60) bonus += 100;
   else if (game.timer < 120) bonus += 50;
   else if (game.timer < 180) bonus += 25;
-
   
   if (game.moves === game.pairsNeeded) bonus += 200;
-
   
   let maxBase = 0;
   switch (game.difficulty) {
@@ -115,12 +108,10 @@ function finalizeScore() {
     case "medium": maxBase = 900; break;
     case "hard": maxBase = 1200; break;
   }
-
   
   const final = Math.min(game.score + bonus, maxBase + 300);
   return final;
 }
-
 
 function flipCard(cardId) {
   const card = game.cards.find((c) => c.id === cardId);
@@ -149,11 +140,9 @@ function flipCard(cardId) {
     return;
   }
 
-
  if (game.moves === 0 && game.flippedCards.length === 0) {
     startTimer();
   }
-
 
   card.flipped = true;
   game.flippedCards.push(cardId);
@@ -165,8 +154,6 @@ function flipCard(cardId) {
     renderCards();
   }
 }
-
-
 
 function startTimer() {
   game.timer = 0;
@@ -185,6 +172,9 @@ function stopTimer() {
 async function startGame(difficulty, playerName) {
   console.log("🎮 Startar spel...");
 
+  document.getElementById("startScreen").classList.add("hidden");
+  document.getElementById("gameScreen").classList.remove("hidden");
+
   if (nobelData.length === 0) {
     console.log("📥 Laddar data först...");
     await loadNobelData();
@@ -198,7 +188,6 @@ async function startGame(difficulty, playerName) {
   else if (difficulty === "medium") game.pairsNeeded = 9;
   else if (difficulty === "hard") game.pairsNeeded = 12;
  
-
   game.cards = createNobelCards();
 
   if (game.cards.length === 0) {
@@ -214,7 +203,31 @@ async function startGame(difficulty, playerName) {
   document.getElementById("score").textContent = 0;
  document.getElementById("timer").textContent = "0:00";
 
-
   renderCards();
-  
 }
+
+document.getElementById("giveUpBtn").addEventListener("click", () => {
+  if (confirm("Är du säker på att du vill ge upp? Dina poäng sparas inte.")) {
+    // Stoppa timer och återställ spel manuellt — utan att kalla endGame()
+    clearInterval(game.timerInterval);
+    game.timerInterval = null;
+
+    // Nollställ spelets data
+    game.cards = [];
+    game.flippedCards = [];
+    game.moves = 0;
+    game.matches = 0;
+    game.timer = 0;
+    game.score = 0;
+
+    // Visa rätt sida i HTML
+    document.getElementById("gameScreen").classList.add("hidden");
+    document.getElementById("endScreen").classList.add("hidden");
+    document.getElementById("leaderboardScreen").classList.add("hidden");
+    document.getElementById("startScreen").classList.remove("hidden");
+
+    // (valfritt) rensa korten
+    const cardGrid = document.getElementById("cardGrid");
+    if (cardGrid) cardGrid.innerHTML = "";
+  }
+});

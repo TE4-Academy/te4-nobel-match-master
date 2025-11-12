@@ -10,9 +10,9 @@
 <body class="bg-gray-900 text-white min-h-screen flex items-center justify-center p-4">
   <div class="bg-gray-800 rounded-2xl shadow-2xl p-8 w-full max-w-2xl border border-gray-700">
     <!--STARTSKÄRM-->
-    <div id="startScreen" class="w-full text-center hidden">
+    <div id="startScreen" class="w-full text-center">
       <h1 class="text-4xl font-bold mb-8">Nobel Match Master</h1>
-      <!-- Användarnamn input -->
+      <!--ANVÄNDARNAMN-->
       <div class="mb-6">
         <label for="playerName" class="block text-sm font-medium mb-2"
           >Ditt namn:</label
@@ -44,16 +44,14 @@
         >
           Svår (12 par)
         </button>
-        <!-- Leaderboard-knapp -->
-<button
-  id="showLeaderboardBtn"
-  class="bg-purple-500 text-white px-8 py-4 font-bold hover:bg-purple-600 rounded-lg w-full sm:w-64"
->
-  Visa Leaderboard
-</button>
 
-      </div>
+    <!--LEADERBOARD-->
+    <button
+    id="showLeaderboardBtn"
+    class="bg-purple-500 text-white px-8 py-4 font-bold hover:bg-purple-600 rounded-lg w-full sm:w-64"
+    >Visa Leaderboard</button>
     </div>
+  </div>
 
     <!--SPELSKÄRM-->
     <div id="gameScreen" class="w-full text-center hidden">
@@ -84,6 +82,10 @@
         </div>
       </div>
       <div id="cardGrid" class="grid gap-4"></div>
+      <button id="giveUpBtn" class="mt-4 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm">
+  Ge upp
+</button>
+
     </div>
 
     <!--SLUTSKÄRM-->
@@ -113,11 +115,12 @@
         Spela igen
       </button>
     </div>
-    <!--LEADERBOARD-SKÄRM-->
+
+    <!--LEADERBOARD-->
     <div id="leaderboardScreen" class="max-w-2xl mx-auto text-center hidden">
       <h2 class="text-4xl font-bold mb-8 text-yellow-400">🏆 Leaderboard</h2>
 
-      <!-- Svårighetsgrads-filter -->
+      <!--SVÅRIGHETSGRADSMENY-->
       <div class="flex justify-center gap-4 mb-6">
         <button
           class="leaderboard-filter bg-green-500 px-4 py-2 rounded-lg font-bold hover:bg-green-600"
@@ -138,7 +141,7 @@
           Svår
         </button>
       </div>
-      <!-- Sorterings-knappar -->
+      <!--LEADERBOARDSORTERING-->
       <div class="flex justify-center gap-4 mb-6">
         <button
           id="sortByScore"
@@ -153,14 +156,16 @@
           ⚡ Snabbast Tid
         </button>
       </div>
-      <!-- Leaderboard-lista -->
-      <div
-        id="leaderboardList"
-        class="bg-gray-800 p-6 rounded-lg mb-6 max-h-96 overflow-y-auto"
-      >
-        <!-- Fylls dynamiskt -->
+
+      <!--LEADERBOARDLISTA-->
+<div
+  id="leaderboardList"
+  class="bg-gray-800 p-6 rounded-lg mb-6 max-h-96 overflow-y-auto overflow-x-hidden break-words"
+>
+
       </div>
 
+      <!--BACKA-->
       <button
         id="backToStart"
         class="bg-blue-500 text-white px-8 py-4 font-bold hover:bg-blue-600 rounded-lg"
