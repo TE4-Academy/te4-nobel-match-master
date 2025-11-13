@@ -1,4 +1,14 @@
-// main.js - Initiering av spelet
+// Ljudobjekt
+const gameSound = {
+  flip: new Audio('./sounds/flip.mp3'),
+  match: new Audio('./sounds/match.mp3'),
+  win: new Audio('./sounds/win.mp3')
+};
+
+// Sätt volym
+gameSound.flip.volume = 0.5;
+gameSound.match.volume = 0.6;
+gameSound.win.volume = 0.7;
 
 function setupDifficultyButtons() {
   document.querySelectorAll("[game-difficulty]").forEach(btn => {
