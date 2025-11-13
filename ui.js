@@ -5,9 +5,9 @@ function renderCards() {
   container.className = "grid gap-4 grid-cols-3";
   container.innerHTML = "";
 
- game.cards.forEach((card) => {
+  game.cards.forEach((card) => {
     const cardEl = document.createElement("div");
-
+    cardEl.setAttribute("data-card-id", card.id);
     if (card.flipped || card.matched) {
       if (card.type === "person") {
         cardEl.innerHTML = `
@@ -60,10 +60,10 @@ function showEndScreen() {
   const endScreen = document.getElementById("endScreen");
   endScreen.classList.remove("hidden");
 
-   confetti({
+  confetti({
     particleCount: 100,
     spread: 70,
-    origin: { y: 0.6 }
+    origin: { y: 0.6 },
   });
 
   if (game.moves === game.pairsNeeded) {
@@ -71,7 +71,7 @@ function showEndScreen() {
       confetti({
         particleCount: 150,
         spread: 120,
-        origin: { y: 0.4 }
+        origin: { y: 0.4 },
       });
     }, 500);
   }
@@ -101,7 +101,7 @@ function showEndScreen() {
   };
 }
 // Visar leaderboard-skärmen
-function showLeaderboard(difficulty = "easy", sortBy = 'score') {
+function showLeaderboard(difficulty = "easy", sortBy = "score") {
   document.getElementById("startScreen").classList.add("hidden");
   document.getElementById("leaderboardScreen").classList.remove("hidden");
 
@@ -109,16 +109,16 @@ function showLeaderboard(difficulty = "easy", sortBy = 'score') {
 }
 
 // Renderar leaderboard-listan
-function renderLeaderboard(difficulty, sortBy = 'score') {
+function renderLeaderboard(difficulty, sortBy = "score") {
   let scores;
-  
+
   // Hämta scores baserat på sortering
-  if (sortBy === 'time') {
+  if (sortBy === "time") {
     scores = getHighScoresByDifficultyAndTime(difficulty);
   } else {
     scores = getHighScoresByDifficulty(difficulty);
   }
-  
+
   const container = document.getElementById("leaderboardList");
 
   if (scores.length === 0) {
