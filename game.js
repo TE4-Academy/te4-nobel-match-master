@@ -59,7 +59,7 @@ function checkMatch() {
   if (card1.pairId === card2.pairId) {
     console.log("MATCH");
     gameSound.match.currentTime = 0;
-  gameSound.match.play().catch(e => console.log('Ljud blockerat'));
+    gameSound.match.play().catch((e) => console.log("Ljud blockerat"));
     card1.matched = true;
     card2.matched = true;
     game.matches++;
@@ -73,21 +73,25 @@ function checkMatch() {
       stopTimer();
       clearInterval(game.timerInterval);
       const finalScore = finalizeScore();
-        gameSound.win.currentTime = 0;
-    gameSound.win.play().catch(e => console.log('Ljud blockerat'));
+      gameSound.win.currentTime = 0;
+      gameSound.win.play().catch((e) => console.log("Ljud blockerat"));
       const minutes = Math.floor(game.timer / 60);
       const seconds = game.timer % 60;
       const timeFormatted = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
       setTimeout(() => showEndScreen(), 800);
     }
-
   } else {
-    
-    game.score -= 10; 
+    game.score -= 10;
     document.getElementById("score").textContent = game.score;
 
     game.isFlipping = true;
+    const card1Element = document.querySelector(`[data-card-id="${id1}"]`);
+    const card2Element = document.querySelector(`[data-card-id="${id2}"]`);
+    if (card1Element) card1Element.classList.add("shake");
+    if (card2Element) card2Element.classList.add("shake");
     setTimeout(() => {
+      if (card1Element) card1Element.classList.remove("shake");
+      if (card2Element) card2Element.classList.remove("shake");
       card1.flipped = false;
       card2.flipped = false;
       game.flippedCards = [];
@@ -99,20 +103,26 @@ function checkMatch() {
 
 function finalizeScore() {
   let bonus = 0;
-  
+
   if (game.timer < 60) bonus += 100;
   else if (game.timer < 120) bonus += 50;
   else if (game.timer < 180) bonus += 25;
-  
+
   if (game.moves === game.pairsNeeded) bonus += 200;
-  
+
   let maxBase = 0;
   switch (game.difficulty) {
-    case "easy": maxBase = 600; break;
-    case "medium": maxBase = 900; break;
-    case "hard": maxBase = 1200; break;
+    case "easy":
+      maxBase = 600;
+      break;
+    case "medium":
+      maxBase = 900;
+      break;
+    case "hard":
+      maxBase = 1200;
+      break;
   }
-  
+
   const final = Math.min(game.score + bonus, maxBase + 300);
   return final;
 }
@@ -144,12 +154,12 @@ function flipCard(cardId) {
     return;
   }
 
- if (game.moves === 0 && game.flippedCards.length === 0) {
+  if (game.moves === 0 && game.flippedCards.length === 0) {
     startTimer();
   }
 
-gameSound.flip.currentTime = 0;
-gameSound.flip.play().catch(e => console.log('Ljud blockerat'));
+  gameSound.flip.currentTime = 0;
+  gameSound.flip.play().catch((e) => console.log("Ljud blockerat"));
 
   card.flipped = true;
   game.flippedCards.push(cardId);
@@ -167,9 +177,12 @@ function startTimer() {
   clearInterval(game.timerInterval);
   game.timerInterval = setInterval(() => {
     game.timer++;
-    const mins = Math.floor(game.timer / 60 );
+    const mins = Math.floor(game.timer / 60);
     const secs = game.timer % 60;
-    document.getElementById("timer").textContent = `${mins}:${secs.toString().padStart(2, '0')}`;  }, 1000);
+    document.getElementById("timer").textContent = `${mins}:${secs
+      .toString()
+      .padStart(2, "0")}`;
+  }, 1000);
 }
 
 function stopTimer() {
@@ -185,16 +198,16 @@ async function startGame(difficulty, playerName) {
   if (nobelData.length === 0) {
     console.log("📥 Laddar data först...");
     await loadNobelData();
-   console.log("✅ Data laddad! nobelData.length:", nobelData.length);
+    console.log("✅ Data laddad! nobelData.length:", nobelData.length);
   }
 
   game.difficulty = difficulty || "easy";
   game.playerName = playerName || "Anonym";
- 
+
   if (difficulty === "easy") game.pairsNeeded = 6;
   else if (difficulty === "medium") game.pairsNeeded = 9;
   else if (difficulty === "hard") game.pairsNeeded = 12;
- 
+
   game.cards = createNobelCards();
 
   if (game.cards.length === 0) {
@@ -208,7 +221,7 @@ async function startGame(difficulty, playerName) {
   game.timer = 0;
   game.score = 0;
   document.getElementById("score").textContent = 0;
- document.getElementById("timer").textContent = "0:00";
+  document.getElementById("timer").textContent = "0:00";
 
   renderCards();
 }

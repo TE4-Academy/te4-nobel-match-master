@@ -52,7 +52,7 @@
 
 ### 💅 Layout och visuell feedback
 - [x] Mobile-first design (Tailwind)
-- [ ] Grid-layout justeras efter svårighetsgrad:
+- [x] Grid-layout justeras efter svårighetsgrad:
   - Lätt: 3x4
   - Medel: 4x5
   - Svår: 4x6
@@ -70,11 +70,11 @@
 ---
 
 ### 🔊 Ljud och effekter (om tid finns)
-- [ ] Ljud vid flip
-- [ ] Ljud vid match
-- [ ] Ljud vid vinst
-- [ ] Konfetti-animation vid win
-- [ ] Partikeleffekt vid perfekt score
+- [x] Ljud vid flip
+- [x] Ljud vid match
+- [x] Ljud vid vinst
+- [x] Konfetti-animation vid win
+- [x] Partikeleffekt vid perfekt score
 
 ---
 
