@@ -114,20 +114,20 @@
 ## 🧪 Testning
 
 ### 🧭 Funktionella tester
-- [ ] Testa spelet på Chrome
-- [ ] Testa spelet på Firefox
-- [ ] Testa spelet på Safari
-- [ ] Testa på mobil (Chrome/Android)
-- [ ] Testa på iPhone (Safari)
-- [ ] Alla svårighetsnivåer fungerar
-- [ ] Timer nollställs korrekt varje gång
-- [ ] Poängräkning fungerar enligt tabell
+- [x] Testa spelet på Chrome
+- [x] Testa spelet på Firefox
+- [x] Testa spelet på Safari
+- [x] Testa på mobil (Chrome/Android)
+- [x] Testa på iPhone (Safari)
+- [x] Alla svårighetsnivåer fungerar
+- [x] Timer nollställs korrekt varje gång
+- [x] Poängräkning fungerar enligt tabell
 - [ ] Flip-animation fungerar i alla browsers
-- [ ] Leaderboard-data sparas mellan sessioner
+- [x] Leaderboard-data sparas mellan sessioner
 
 ### 🧱 Felhantering
 - [x] Visa felmeddelande om JSON-data inte laddas
-- [ ] Hantera klick under animationer
+- [x] Hantera klick under animationer
 - [ ] Spelet kraschar inte vid reload
 - [ ] Alla console.log tas bort inför release
 
@@ -137,15 +137,15 @@
 
 - [x] Projektet körs lokalt med `Live Server`
 - [x] Testat att funka efter page reload
-- [ ] Netlify-konto skapat
-- [ ] Projektet deployat till Netlify
+- [x] Netlify-konto skapat
+- [x] Projektet deployat till Netlify
 - [ ] `README.md` innehåller:
   - Hur man spelar
   - Hur man kör lokalt
   - Screenshots
   - Länk till live-version
 - [ ] Ingen känslig data i koden
-- [ ] All kod validerad (HTML, CSS, JS)
+- [x] All kod validerad (HTML, CSS, JS)
 
 ---
 
