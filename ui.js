@@ -80,16 +80,6 @@ function showEndScreen() {
   document.getElementById("time").textContent = timeFormatted;
   document.getElementById("finalAttempts").textContent = game.moves;
 
-  // Visa confetti
-  const confettiWrapper = document.getElementById("confetti-wrapper");
-  confettiWrapper.classList.remove("hidden");
-
-  // Dölj confetti efter 3-5 sekunder
-  setTimeout(() => {
-    confettiWrapper.classList.add("hidden");
-  }, 5000); // 5 sekunder
-
-
   // Spara till leaderboard och visa placering
   const rank = saveHighScore(
     game.playerName,
