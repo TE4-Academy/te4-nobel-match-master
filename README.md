@@ -1,4 +1,10 @@
 # te4-nobel-match-master
+
+1. Välj namn (frivilligt)
+2. Välj svårighetsgrad (enkel, medel eller svår)
+3. Matcha nobelpristagaren med varför de vann nobelpriset så fort som möjligt (klicka på ge upp ifall du vill avsluta spelet)
+4. Klicka på leaderboardknappen för att se din placering (frivilligt, visas även efter man vunnit)
+
 ### Team C: Match Master
 **Speltyp:** Memory/matching game
 
