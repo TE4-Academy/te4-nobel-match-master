@@ -110,6 +110,7 @@ function showLeaderboard(difficulty = "easy", sortBy = "score") {
 
 // Renderar leaderboard-listan
 function renderLeaderboard(difficulty, sortBy = "score") {
+  const container = document.getElementById("leaderboardList");
   let scores;
 
   // Hämta scores baserat på sortering
@@ -117,13 +118,6 @@ function renderLeaderboard(difficulty, sortBy = "score") {
     scores = getHighScoresByDifficultyAndTime(difficulty);
   } else {
     scores = getHighScoresByDifficulty(difficulty);
-  }
-
-  const container = document.getElementById("leaderboardList");
-
-  if (scores.length === 0) {
-    container.innerHTML = '<p class="text-gray-400">Inga scores ännu!</p>';
-    return;
   }
 
   let html = '<div class="space-y-3">';
@@ -157,3 +151,11 @@ function renderLeaderboard(difficulty, sortBy = "score") {
   html += "</div>";
   container.innerHTML = html;
 }
+
+document.getElementById("menyUpBtn").addEventListener("click", () => {
+    document.getElementById("gameScreen").classList.add("hidden");
+    document.getElementById("endScreen").classList.add("hidden");
+    document.getElementById("leaderboardScreen").classList.add("hidden");
+    document.getElementById("wikipediaScreen").classList.add("hidden");
+    document.getElementById("startScreen").classList.remove("hidden");
+  });
