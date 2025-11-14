@@ -8,7 +8,6 @@ async function loadNobelData() {
     }
     const data = await response.json();
     nobelData = data.laureates;
-    console.log("Data laddad! nobelData.length:", nobelData.length);
     return nobelData;
   } catch (error) {
     console.error("Fel vid laddning av data:", error);

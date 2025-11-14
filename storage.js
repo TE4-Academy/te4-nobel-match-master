@@ -27,8 +27,7 @@ function saveHighScore(playerName, score, time, moves, difficulty) {
     });
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(highscores));
-    console.log("✅ Highscore sparad!");
-
+   
     // Returnera placeringen för detta score
     return getScoreRank(newScore, difficulty);
   } catch (error) {
@@ -93,7 +92,6 @@ function getScoreRank(scoreObj, difficulty) {
 function clearHighScores() {
   try {
     localStorage.removeItem(STORAGE_KEY);
-    console.log("🗑️ Alla highscores rensade!");
   } catch (error) {
     console.error("Fel vid rensning av highscores:", error);
   }
