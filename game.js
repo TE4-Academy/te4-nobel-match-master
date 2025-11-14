@@ -57,7 +57,6 @@ function checkMatch() {
   game.moves++;
 
   if (card1.pairId === card2.pairId) {
-    console.log("MATCH");
     gameSound.match.currentTime = 0;
     gameSound.match.play().catch((e) => console.log("Ljud blockerat"));
     card1.matched = true;
@@ -131,26 +130,21 @@ function flipCard(cardId) {
   const card = game.cards.find((c) => c.id === cardId);
 
   if (!card) {
-    console.log("kortet finns inte");
     return;
   }
 
   if (card.flipped) {
-    console.log("kortet är redan vänt");
     return;
   }
 
   if (card.matched) {
-    console.log("kortet är redan matchat");
     return;
   }
   if (game.flippedCards.length >= 2) {
-    console.log("kortet inte vända");
     return;
   }
 
   if (game.isFlipping) {
-    console.log("Väntar på kort ska vändas tillbaka");
     return;
   }
 
@@ -190,15 +184,12 @@ function stopTimer() {
 }
 
 async function startGame(difficulty, playerName) {
-  console.log("🎮 Startar spel...");
 
   document.getElementById("startScreen").classList.add("hidden");
   document.getElementById("gameScreen").classList.remove("hidden");
 
   if (nobelData.length === 0) {
-    console.log("📥 Laddar data först...");
     await loadNobelData();
-    console.log("✅ Data laddad! nobelData.length:", nobelData.length);
   }
 
   game.difficulty = difficulty || "easy";
