@@ -71,12 +71,10 @@ function checkMatch() {
     if (game.matches === game.pairsNeeded) {
       stopTimer();
       clearInterval(game.timerInterval);
-      const finalScore = finalizeScore();
+    ;
       gameSound.win.currentTime = 0;
       gameSound.win.play().catch((e) => console.log("Ljud blockerat"));
-      const minutes = Math.floor(game.timer / 60);
-      const seconds = game.timer % 60;
-      const timeFormatted = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    
       setTimeout(() => showEndScreen(), 800);
     }
   } else {
@@ -100,7 +98,7 @@ setTimeout(() => {
       game.isFlipping = false;
       renderCards();
   }, 500); // Shake-längd
-}, 600); // Flip-längd
+}, 400); // Flip-längd
 }
 }
 
@@ -167,7 +165,7 @@ function flipCard(cardId) {
   if (game.flippedCards.length === 2) {
     setTimeout(() => {
     checkMatch();
-  }, 600);
+  }, 500);
   }
 }
 
@@ -242,7 +240,7 @@ document.getElementById("giveUpBtn").addEventListener("click", () => {
     document.getElementById("leaderboardScreen").classList.add("hidden");
     document.getElementById("startScreen").classList.remove("hidden");
 
-    // (valfritt) rensa korten
+    // rensa korten
     const cardGrid = document.getElementById("cardGrid");
     if (cardGrid) cardGrid.innerHTML = "";
   }
