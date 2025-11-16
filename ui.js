@@ -7,47 +7,63 @@ function renderCards() {
 
   game.cards.forEach((card) => {
     const cardEl = document.createElement("div");
+    cardEl.classList.add("game-card");
     cardEl.setAttribute("data-card-id", card.id);
-    if (card.flipped || card.matched) {
-      if (card.type === "person") {
-        cardEl.innerHTML = `
-          <div class="flex flex-col items-center gap-2 text-center">
-            ${
-              card.imageUrl
-                ? `<img src="${card.imageUrl}" class="w-16 h-16 rounded-full object-cover" alt="${card.name}">`
-                : ""
-            }
-            <div class="font-bold text-sm">${card.name}</div>
-            <div class="text-xs">${card.country}</div>
-          </div>
-        `;
-      } else {
-        cardEl.innerHTML = `
-          <div class="flex flex-col items-center gap-1 text-center">
-            <div class="text-xs font-bold text-yellow-300">${card.category}</div>
-            <div class="text-sm">${card.achievement}</div>
-            <div class="text-xs text-gray-300">${card.year}</div>
-          </div>
-        `;
-      }
+    
+    const innerEl = document.createElement("div");
+    innerEl.classList.add("game-card-inner");
 
-      cardEl.className = card.matched
-        ? "bg-green-600 h-40 rounded-lg flex items-center justify-center p-4 text-white"
-        : "bg-blue-600 h-40 rounded-lg flex items-center justify-center p-4 text-white";
-    } else {
-      cardEl.textContent = "?";
-      cardEl.className =
-        "bg-gray-700 h-40 rounded-lg flex items-center justify-center text-4xl cursor-pointer hover:bg-gray-600";
+    const frontEl = document.createElement("div");
+    frontEl.classList.add("game-card-front");
+    frontEl.textContent = "?";
+
+    const backEl = document.createElement("div");
+    backEl.classList.add("game-card-back");
+
+
+    if (card.matched){
+      backEl.classList.add("matched");
+    } else if (card.flipped){
+      backEl.classList.add("flipped");
     }
 
-    cardEl.onclick = () => flipCard(card.id);
-    container.appendChild(cardEl);
-  });
+    if (card.type === "person"){
+      backEl.innerHTML = `
+       <div class="flex flex-col items-center gap-2 text-center text-white">
+       ${card.imageUrl ? `<img src="${card.imageUrl}" class="w-16 h-16 rounded-full object-cover" alt="${card.name}">` : ""}
+      <div class = "font-bold text-sm">${card.name}</div>
+      <div class = "text-xs">${card.country}</div>
+      </div>
+       `;
+        } else if (card.type === "achievement"){
+      backEl.innerHTML = `
+       <div class="flex flex-col items-center gap-2 text-center text-white p-2">
+      <div class = "font-bold text-xs">${card.category}</div>
+      <div class = "text-xs">${card.achievement}</div>
+      <div class = "text-xs text-gray-400">${card.year}</div>
+      </div>
+       `;
+    }
+
+   innerEl.appendChild(frontEl);
+   innerEl.appendChild(backEl);
+    cardEl.appendChild(innerEl);
+       cardEl.onclick = () => flipCard(card.id);
+       container.appendChild(cardEl);
+
+
+       if (card.matched) {
+        cardEl.classList.add("flipped");
+       } else if  (card.flipped && !cardEl.classList.contains("flipped")) {
+        setTimeout(() => {
+          cardEl.classList.add("flipped");
+        
+       }, 10);
+       }
+      });
 
   document.getElementById("attempts").textContent = game.moves;
-  document.getElementById(
-    "matches"
-  ).textContent = `${game.matches}/${game.pairsNeeded}`;
+  document.getElementById("matches").textContent = `${game.matches}/${game.pairsNeeded}`;
 }
 function showEndScreen() {
   const finalScore = finalizeScore();

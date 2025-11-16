@@ -86,6 +86,9 @@ function checkMatch() {
     game.isFlipping = true;
     const card1Element = document.querySelector(`[data-card-id="${id1}"]`);
     const card2Element = document.querySelector(`[data-card-id="${id2}"]`);
+
+   
+setTimeout(() => {
     if (card1Element) card1Element.classList.add("shake");
     if (card2Element) card2Element.classList.add("shake");
     setTimeout(() => {
@@ -96,8 +99,9 @@ function checkMatch() {
       game.flippedCards = [];
       game.isFlipping = false;
       renderCards();
-    }, 1000);
-  }
+  }, 500); // Shake-längd
+}, 600); // Flip-längd
+}
 }
 
 function finalizeScore() {
@@ -158,11 +162,12 @@ function flipCard(cardId) {
   card.flipped = true;
   game.flippedCards.push(cardId);
 
+
+   renderCards();
   if (game.flippedCards.length === 2) {
-    renderCards();
+    setTimeout(() => {
     checkMatch();
-  } else {
-    renderCards();
+  }, 600);
   }
 }
 
