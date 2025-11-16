@@ -40,7 +40,7 @@ function renderCards() {
        <div class="flex flex-col items-center gap-2 text-center text-white p-2">
       <div class = "font-bold text-xs">${card.category}</div>
       <div class = "text-xs">${card.achievement}</div>
-      <div class = "text-xs text-gray-400">${card.year}</div>
+      <div class = "text-xs text-white">${card.year}</div>
       </div>
        `;
     }
