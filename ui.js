@@ -1,33 +1,33 @@
 function renderCards() {
-  const container = document.getElementById("cardGrid");
+  const container = document.getElementById("cardGrid"); //Vi hämtar <div id="cardGrid"> där alla kort ska visas.
   if (!container) return;
 
-  container.className = "grid gap-4 grid-cols-3";
+  container.className = "grid gap-4 grid-cols-3"; // skapa gridarna 3 på bredden
   container.innerHTML = "";
-
-  game.cards.forEach((card) => {
-    const cardEl = document.createElement("div");
-    cardEl.classList.add("game-card");
-    cardEl.setAttribute("data-card-id", card.id);
+//här behvöer vi skapa 3 lager: Lager 1 – Yttre skalet Detta är ramen runt allt. Lager 2 – Det roterande lagret, Lager 3 – Sidorna (2 element)
+  game.cards.forEach((card) => {  //Vi går igenom alla kort-objekt som finns i game.cards
+    const cardEl = document.createElement("div"); // skapar vi ett tomt div-element som är själva kortets yttre skal
+    cardEl.classList.add("game-card"); //CSS-klass som heter game-card. 
+    cardEl.setAttribute("data-card-id", card.id); 
     
     const innerEl = document.createElement("div");
-    innerEl.classList.add("game-card-inner");
+    innerEl.classList.add("game-card-inner");  //game-card-inner är lagret som roterar när kortet vänds.
 
-    const frontEl = document.createElement("div");
+    const frontEl = document.createElement("div"); //Det här skapar framsidan av kortet
     frontEl.classList.add("game-card-front");
     frontEl.textContent = "?";
 
-    const backEl = document.createElement("div");
+    const backEl = document.createElement("div"); //Det här skapar baksidan av kortet.
     backEl.classList.add("game-card-back");
 
 
-    if (card.matched){
-      backEl.classList.add("matched");
+    if (card.matched){  //Här kollar vi först vilket läge kortet är i, då lägger vi till klassen matched på baksidan.
+      backEl.classList.add("matched"); 
     } else if (card.flipped){
       backEl.classList.add("flipped");
     }
 
-    if (card.type === "person"){
+    if (card.type === "person"){  //Fyll baksidan med rätt innehåll beroende på korttyp
       backEl.innerHTML = `
        <div class="flex flex-col items-center gap-2 text-center text-white">
        ${card.imageUrl ? `<img src="${card.imageUrl}" class="w-16 h-16 rounded-full object-cover" alt="${card.name}">` : ""}
@@ -35,7 +35,7 @@ function renderCards() {
       <div class = "text-xs">${card.country}</div>
       </div>
        `;
-        } else if (card.type === "achievement"){
+        } else if (card.type === "achievement"){  //Om korttypen är achievement, alltså själva priset
       backEl.innerHTML = `
        <div class="flex flex-col items-center gap-2 text-center text-white p-2">
       <div class = "font-bold text-xs">${card.category}</div>
@@ -45,16 +45,16 @@ function renderCards() {
        `;
     }
 
-   innerEl.appendChild(frontEl);
+   innerEl.appendChild(frontEl);  //Nu sätter vi fast framsidan och baksidan på det roterande lagret, innerEl.Det är de här två sidorna som flippar när kortet vänds."
    innerEl.appendChild(backEl);
-    cardEl.appendChild(innerEl);
-       cardEl.onclick = () => flipCard(card.id);
-       container.appendChild(cardEl);
+    cardEl.appendChild(innerEl); // Sätt fast inner-lagret på själva kortet
+       cardEl.onclick = () => flipCard(card.id); //Klick-event för att vända kortet
+       container.appendChild(cardEl); // Lägg in kortet i grid-layouten
 
 
-       if (card.matched) {
-        cardEl.classList.add("flipped");
-       } else if  (card.flipped && !cardEl.classList.contains("flipped")) {
+       if (card.matched) { //Om kortet är matchat  håll det alltid uppvänt
+        cardEl.classList.add("flipped"); 
+       } else if  (card.flipped && !cardEl.classList.contains("flipped")) { //För att flippen ska synas måste den: först ritas som ovänd efteråt få klassen "flipped" då startar CSS-transitionen = flippen
         setTimeout(() => {
           cardEl.classList.add("flipped");
         
@@ -62,7 +62,7 @@ function renderCards() {
        }
       });
 
-  document.getElementById("attempts").textContent = game.moves;
+  document.getElementById("attempts").textContent = game.moves; //Uppdatera statistiken i HUD
   document.getElementById("matches").textContent = `${game.matches}/${game.pairsNeeded}`;
 }
 function showEndScreen() {
