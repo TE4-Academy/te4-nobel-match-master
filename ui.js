@@ -11,7 +11,7 @@ function renderCards() {
     container.className = "grid gap-2 sm:gap-4 grid-cols-3 sm:grid-cols-6";
   } else {
     // Hard: 12 par = 24 kort
-    container.className = "grid gap-2 sm:gap-4 grid-cols-4 sm:grid-cols-6";
+    container.className = "grid gap-2 sm:gap-4 grid-cols-3 sm:grid-cols-6";
   }
   
   container.innerHTML = "";
