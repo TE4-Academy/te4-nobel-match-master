@@ -1,69 +1,64 @@
+/*-----------------------------------------------------------------------------------------------------------------*/
+
 function renderCards() {
   const container = document.getElementById("cardGrid");
-  if (!container) return;
+  //HÄMTA CONTAINER
+  if (!container) return
+// GÖR INGENTING OM CONTAINERN INTE FINNS
 
   container.className = "grid gap-4 grid-cols-3";
   container.innerHTML = "";
 
   game.cards.forEach((card) => {
     const cardEl = document.createElement("div");
-    cardEl.classList.add("game-card");
     cardEl.setAttribute("data-card-id", card.id);
-    
-    const innerEl = document.createElement("div");
-    innerEl.classList.add("game-card-inner");
+    if (card.flipped || card.matched) {
+      //Kollar ifall kortet är flipped eller matched
+      if (card.type === "person") {
+        cardEl.innerHTML = `
+          <div class="flex flex-col items-center gap-2 text-center">
+            ${
+              card.imageUrl
+                ? `<img src="${card.imageUrl}" class="w-16 h-16 rounded-full object-cover" alt="${card.name}">`
+                : ""
+            }
+            <div class="font-bold text-sm">${card.name}</div>
+            <div class="text-xs">${card.country}</div>
+          </div>
+        `;
+        //Om kortet är flippat = visa framsidan
+      } else {
+        cardEl.innerHTML = `
+          <div class="flex flex-col items-center gap-1 text-center">
+            <div class="text-xs font-bold text-yellow-300">${card.category}</div>
+            <div class="text-sm">${card.achievement}</div>
+            <div class="text-xs text-gray-300">${card.year}</div>
+          </div>
+        `;
+        //Om kortet INTE är flippat = visa baksidan
+      }
 
-    const frontEl = document.createElement("div");
-    frontEl.classList.add("game-card-front");
-    frontEl.textContent = "?";
-
-    const backEl = document.createElement("div");
-    backEl.classList.add("game-card-back");
-
-
-    if (card.matched){
-      backEl.classList.add("matched");
-    } else if (card.flipped){
-      backEl.classList.add("flipped");
+      cardEl.className = card.matched
+        ? "bg-green-600 h-40 rounded-lg flex items-center justify-center p-4 text-white"
+        : "bg-blue-600 h-40 rounded-lg flex items-center justify-center p-4 text-white";
+        //BYTER FÄRGEN TILL BLÅ OM KORTEN = MATCHADE
+    } else {
+      cardEl.textContent = "?";
+      cardEl.className =
+        "bg-gray-700 h-40 rounded-lg flex items-center justify-center text-4xl cursor-pointer hover:bg-gray-600";
+        //"BYTER" FÄRGEN TILL GRÅ OM KORTEN = INTE MATCHADE
     }
+    cardEl.onclick = () => flipCard(card.id);
+    //OM MAN TRYCKT PÅ KORTET = DEN KÖR flipCard() FÖR KORTETS ID
+    container.appendChild(cardEl);
+  });
 
-    if (card.type === "person"){
-      backEl.innerHTML = `
-       <div class="flex flex-col items-center gap-2 text-center text-white">
-       ${card.imageUrl ? `<img src="${card.imageUrl}" class="w-16 h-16 rounded-full object-cover" alt="${card.name}">` : ""}
-      <div class = "font-bold text-sm">${card.name}</div>
-      <div class = "text-xs">${card.country}</div>
-      </div>
-       `;
-        } else if (card.type === "achievement"){
-      backEl.innerHTML = `
-       <div class="flex flex-col items-center gap-2 text-center text-white p-2">
-      <div class = "font-bold text-xs">${card.category}</div>
-      <div class = "text-xs">${card.achievement}</div>
-      <div class = "text-xs text-white">${card.year}</div>
-      </div>
-       `;
-    }
-
-   innerEl.appendChild(frontEl);
-   innerEl.appendChild(backEl);
-    cardEl.appendChild(innerEl);
-       cardEl.onclick = () => flipCard(card.id);
-       container.appendChild(cardEl);
-
-
-       if (card.matched) {
-        cardEl.classList.add("flipped");
-       } else if  (card.flipped && !cardEl.classList.contains("flipped")) {
-        setTimeout(() => {
-          cardEl.classList.add("flipped");
-        
-       }, 10);
-       }
-      });
+  /*-----------------------------------------------------------------------------------------------------------------*/
 
   document.getElementById("attempts").textContent = game.moves;
-  document.getElementById("matches").textContent = `${game.matches}/${game.pairsNeeded}`;
+  document.getElementById(
+    "matches"
+  ).textContent = `${game.matches}/${game.pairsNeeded}`;
 }
 function showEndScreen() {
   const finalScore = finalizeScore();
@@ -134,6 +129,10 @@ function renderLeaderboard(difficulty, sortBy = "score") {
     scores = getHighScoresByDifficultyAndTime(difficulty);
   } else {
     scores = getHighScoresByDifficulty(difficulty);
+  }
+  if (scores.length === 0) {
+    container.innerHTML = '<p class="text-gray-400">Inga scores ännu!</p>';
+    return;
   }
 
   let html = '<div class="space-y-3">';

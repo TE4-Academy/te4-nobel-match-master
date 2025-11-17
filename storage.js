@@ -70,7 +70,6 @@ function getHighScoresByDifficultyAndTime(difficulty) {
 }
 
 // Hittar placeringen för ett specifikt score
-// Hittar placeringen för ett specifikt score
 function getScoreRank(scoreObj, difficulty) {
   const scores = getHighScoresByDifficulty(difficulty);
 

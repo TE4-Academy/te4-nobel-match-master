@@ -1,3 +1,33 @@
+//TAILWIND EXTRASAKER. ANVÄNDS EJ.
+
+//TAILWIND EXTRASAKER. ANVÄNDS EJ.
+
+//TAILWIND EXTRASAKER. ANVÄNDS EJ.
+
+//TAILWIND EXTRASAKER. ANVÄNDS EJ.
+
+//TAILWIND EXTRASAKER. ANVÄNDS EJ.
+
+//TAILWIND EXTRASAKER. ANVÄNDS EJ.
+
+//TAILWIND EXTRASAKER. ANVÄNDS EJ.
+
+//TAILWIND EXTRASAKER. ANVÄNDS EJ.
+
+//TAILWIND EXTRASAKER. ANVÄNDS EJ.
+
+//TAILWIND EXTRASAKER. ANVÄNDS EJ.
+
+//TAILWIND EXTRASAKER. ANVÄNDS EJ.
+
+//TAILWIND EXTRASAKER. ANVÄNDS EJ.
+
+//TAILWIND EXTRASAKER. ANVÄNDS EJ.
+
+//TAILWIND EXTRASAKER. ANVÄNDS EJ.
+
+// -------------------------------------------------------------------------------------------------------------- //
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./*.html", "./src/**/*.{js,jsx,ts,tsx}"],

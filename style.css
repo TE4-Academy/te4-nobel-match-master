@@ -9,7 +9,6 @@
   animation: shake 0.5s;
 }
 
-
 .game-card {
   perspective: 1000px;
   width: 100%;
@@ -29,6 +28,8 @@
   transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
   transform-style: preserve-3d;
 }
+
+/*-----------------------------------------------------------------------------------------------------------------*/
 
 .game-card.flipped .game-card-inner {
   transform: rotateY(180deg); 
@@ -66,9 +67,9 @@
  
 }
 
-
-
 .game-card-back img {
   border: 3px solid white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
+
+/*-----------------------------------------------------------------------------------------------------------------*/
