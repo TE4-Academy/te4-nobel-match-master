@@ -2,7 +2,8 @@
 const gameSound = {
   flip: new Audio('./sounds/flip.mp3'),
   match: new Audio('./sounds/match.mp3'),
-  win: new Audio('./sounds/win.mp3')
+  win: new Audio('./sounds/win.mp3'),
+  wrong: new Audio('./sounds/wrong.mp3')
 };
 
 // Sätt volym
