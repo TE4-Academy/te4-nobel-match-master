@@ -1,3 +1,17 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const infoknappen = document.getElementById("InfoKnapp");
+    const wikipediaScreen = document.getElementById("wikipediaScreen");
+    const startScreen = document.getElementById("startScreen"); // Lägg till id på din startskärm i HTML
+
+    infoknappen.addEventListener("click", () => {
+        // Dölj startscreenen
+        if (startScreen) startScreen.classList.add("hidden");
+
+        // Visa wikipediaskärmen
+        if (wikipediaScreen) wikipediaScreen.classList.remove("hidden");
+    });
+});
+
 // Ljudobjekt
 const gameSound = {
   flip: new Audio('./sounds/flip.mp3'),
