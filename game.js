@@ -49,56 +49,156 @@ function createNobelCards() {
   return shuffleCard(cards);
 }
 
+/**
+ * Funktion som hanterar när en spelare klickar på ett kort
+ * @param {number} cardId - ID:t för kortet som ska vändas
+ */
+function flipCard(cardId) {
+  // Hitta kortet i spelet baserat på ID
+  const card = game.cards.find((c) => c.id === cardId);
+
+  // Om kortet inte finns, avbryt funktionen
+  if (!card) {
+    return;
+  }
+
+  // Om kortet redan är vänt, avbryt (förhindrar dubbelklick)
+  if (card.flipped) {
+    return;
+  }
+
+  // Om kortet redan är matchat, avbryt (kan inte vända matchade kort)
+  if (card.matched) {
+    return;
+  }
+  
+  // Om två kort redan är vända, avbryt (max 2 kort åt gången)
+  if (game.flippedCards.length >= 2) {
+    return;
+  }
+
+  // Om spelet håller på att vända kort (animation pågår), avbryt
+  if (game.isFlipping) {
+    return;
+  }
+
+  // Starta timern när första kortet vänds (första draget)
+  if (game.moves === 0 && game.flippedCards.length === 0) {
+    startTimer();
+  }
+
+  // Spela upp vändljud från början
+  gameSound.flip.currentTime = 0;
+  gameSound.flip.play().catch((e) => console.log("Ljud blockerat"));
+
+  // Markera kortet som vänt
+  card.flipped = true;
+  // Lägg till kortets ID i listan över vända kort
+  game.flippedCards.push(cardId);
+
+  // Uppdatera visningen av korten på skärmen
+  renderCards();
+  
+  // Om två kort är vända, vänta 500ms och kontrollera sedan om de matchar
+  if (game.flippedCards.length === 2) {
+    setTimeout(() => {
+      checkMatch();
+    }, 500);
+  }
+}
+
+/**
+ * Funktion som kontrollerar om två vända kort matchar varandra
+ * Kollar om de har samma pairId (samma Nobelpristagare)
+ */
 function checkMatch() {
+  // Hämta ID:na för de två vända korten
   const [id1, id2] = game.flippedCards;
+  // Hitta själva kortobjekten baserat på ID:na
   const card1 = game.cards.find((c) => c.id === id1);
   const card2 = game.cards.find((c) => c.id === id2);
 
+  // Öka antalet drag (moves) med 1
   game.moves++;
 
+  // Kontrollera om korten matchar genom att jämföra deras pairId
   if (card1.pairId === card2.pairId) {
+    // === MATCHNING! ===
+    
+    // Spela upp matchningsljud från början
     gameSound.match.currentTime = 0;
     gameSound.match.play().catch((e) => console.log("Ljud blockerat"));
+    
+    // Markera båda korten som matchade
     card1.matched = true;
     card2.matched = true;
+    
+    // Öka antalet matchningar och poäng
     game.matches++;
     game.score += 100;
+    
+    // Töm listan över vända kort (redo för nästa drag)
     game.flippedCards = [];
 
+    // Uppdatera visningen av korten
     renderCards();
+    // Uppdatera poängvisningen på skärmen
     document.getElementById("score").textContent = game.score;
 
+    // Om alla par har matchats, spelet är slut
     if (game.matches === game.pairsNeeded) {
+      // Stoppa timern
       stopTimer();
    
+      // Spela upp vinnarljud
       gameSound.win.currentTime = 0;
       gameSound.win.play().catch((e) => console.log("Ljud blockerat"));
     
+      // Visa slutskärmen efter 800ms (ger tid för animation)
       setTimeout(() => showEndScreen(), 800);
     }
   } else {
+    // === INGEN MATCHNING! ===
+    
+    // Dra av 10 poäng för felaktigt drag
     game.score -= 10;
+    // Uppdatera poängvisningen
     document.getElementById("score").textContent = game.score;
   
+    // Lås spelet tillfälligt under animationen
     game.isFlipping = true;
+    
+    // Hitta HTML-elementen för de två korten
     const card1Element = document.querySelector(`[data-card-id="${id1}"]`);
     const card2Element = document.querySelector(`[data-card-id="${id2}"]`);
 
-   
-   gameSound.wrong.play().catch((e) => console.log("Ljud blockerat"));
+    // Spela upp "fel"-ljud
+    gameSound.wrong.play().catch((e) => console.log("Ljud blockerat"));
+    
+    // Lägg till "shake"-animation på båda korten
     if (card1Element) card1Element.classList.add("shake");
     if (card2Element) card2Element.classList.add("shake");
 
+    // Efter 600ms (animation klar):
     setTimeout(() => {
+      // Ta bort shake-animationen
       if (card1Element) card1Element.classList.remove("shake");
       if (card2Element) card2Element.classList.remove("shake");
+      
+      // Vänd tillbaka korten (markera som inte vända)
       card1.flipped = false;
       card2.flipped = false;
+      
+      // Töm listan över vända kort
       game.flippedCards = [];
+      
+      // Lås upp spelet igen (tillåt nya klick)
       game.isFlipping = false;
+      
+      // Uppdatera visningen (vänd tillbaka korten visuellt)
       renderCards();
-  }, 600); 
-}
+    }, 600); 
+  }
 }
 
 function finalizeScore() {
@@ -127,46 +227,6 @@ function finalizeScore() {
   return final;
 }
 
-function flipCard(cardId) {
-  const card = game.cards.find((c) => c.id === cardId);
-
-  if (!card) {
-    return;
-  }
-
-  if (card.flipped) {
-    return;
-  }
-
-  if (card.matched) {
-    return;
-  }
-  if (game.flippedCards.length >= 2) {
-    return;
-  }
-
-  if (game.isFlipping) {
-    return;
-  }
-
-  if (game.moves === 0 && game.flippedCards.length === 0) {
-    startTimer();
-  }
-
-  gameSound.flip.currentTime = 0;
-  gameSound.flip.play().catch((e) => console.log("Ljud blockerat"));
-
-  card.flipped = true;
-  game.flippedCards.push(cardId);
-
-
-   renderCards();
-  if (game.flippedCards.length === 2) {
-    setTimeout(() => {
-    checkMatch();
-  }, 500);
-  }
-}
 
 function startTimer() {
   game.timer = 0;
