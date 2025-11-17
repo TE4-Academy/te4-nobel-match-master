@@ -71,12 +71,10 @@ function checkMatch() {
     if (game.matches === game.pairsNeeded) {
       stopTimer();
       clearInterval(game.timerInterval);
-      const finalScore = finalizeScore();
+    ;
       gameSound.win.currentTime = 0;
       gameSound.win.play().catch((e) => console.log("Ljud blockerat"));
-      const minutes = Math.floor(game.timer / 60);
-      const seconds = game.timer % 60;
-      const timeFormatted = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    
       setTimeout(() => showEndScreen(), 800);
     }
   } else {
@@ -86,6 +84,9 @@ function checkMatch() {
     game.isFlipping = true;
     const card1Element = document.querySelector(`[data-card-id="${id1}"]`);
     const card2Element = document.querySelector(`[data-card-id="${id2}"]`);
+
+   
+setTimeout(() => {
     if (card1Element) card1Element.classList.add("shake");
     if (card2Element) card2Element.classList.add("shake");
     setTimeout(() => {
@@ -96,8 +97,9 @@ function checkMatch() {
       game.flippedCards = [];
       game.isFlipping = false;
       renderCards();
-    }, 1000);
-  }
+  }, 500); // Shake-längd
+}, 400); // Flip-längd
+}
 }
 
 function finalizeScore() {
@@ -158,11 +160,12 @@ function flipCard(cardId) {
   card.flipped = true;
   game.flippedCards.push(cardId);
 
+
+   renderCards();
   if (game.flippedCards.length === 2) {
-    renderCards();
+    setTimeout(() => {
     checkMatch();
-  } else {
-    renderCards();
+  }, 500);
   }
 }
 
@@ -237,7 +240,7 @@ document.getElementById("giveUpBtn").addEventListener("click", () => {
     document.getElementById("leaderboardScreen").classList.add("hidden");
     document.getElementById("startScreen").classList.remove("hidden");
 
-    // (valfritt) rensa korten
+    // rensa korten
     const cardGrid = document.getElementById("cardGrid");
     if (cardGrid) cardGrid.innerHTML = "";
   }
