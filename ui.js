@@ -1,9 +1,21 @@
 function renderCards() {
-  const container = document.getElementById("cardGrid"); //Vi hämtar <div id="cardGrid"> där alla kort ska visas.
+  const container = document.getElementById("cardGrid");
   if (!container) return;
 
-  container.className = "grid gap-4 grid-cols-3"; // skapa gridarna 3 på bredden
+  // Responsiv grid baserat på svårighetsgrad
+  if (game.pairsNeeded === 6) {
+    // Easy: 6 par = 12 kort
+    container.className = "grid gap-2 sm:gap-4 grid-cols-3 sm:grid-cols-4";
+  } else if (game.pairsNeeded === 9) {
+    // Medium: 9 par = 18 kort
+    container.className = "grid gap-2 sm:gap-4 grid-cols-3 sm:grid-cols-6";
+  } else {
+    // Hard: 12 par = 24 kort
+    container.className = "grid gap-2 sm:gap-4 grid-cols-4 sm:grid-cols-6";
+  }
+  
   container.innerHTML = "";
+  
 //här behvöer vi skapa 3 lager: Lager 1 – Yttre skalet Detta är ramen runt allt. Lager 2 – Det roterande lagret, Lager 3 – Sidorna (2 element)
   game.cards.forEach((card) => {  //Vi går igenom alla kort-objekt som finns i game.cards
     const cardEl = document.createElement("div"); // skapar vi ett tomt div-element som är själva kortets yttre skal
@@ -29,18 +41,18 @@ function renderCards() {
 
     if (card.type === "person"){  //Fyll baksidan med rätt innehåll beroende på korttyp
       backEl.innerHTML = `
-       <div class="flex flex-col items-center gap-2 text-center text-white">
-       ${card.imageUrl ? `<img src="${card.imageUrl}" class="w-16 h-16 rounded-full object-cover" alt="${card.name}">` : ""}
-      <div class = "font-bold text-sm">${card.name}</div>
-      <div class = "text-xs">${card.country}</div>
+       <div class="flex flex-col items-center gap-1 text-center text-white">
+       ${card.imageUrl ? `<img src="${card.imageUrl}" class="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-contain bg-white p-1" alt="${card.name}">` : ""}
+      <div class="font-bold text-xs sm:text-sm">${card.name}</div>
+      <div class="text-xs hidden sm:block">${card.country}</div>
       </div>
        `;
         } else if (card.type === "achievement"){  //Om korttypen är achievement, alltså själva priset
       backEl.innerHTML = `
-       <div class="flex flex-col items-center gap-2 text-center text-white p-2">
-      <div class = "font-bold text-xs">${card.category}</div>
-      <div class = "text-xs">${card.achievement}</div>
-      <div class = "text-xs text-white">${card.year}</div>
+       <div class="flex flex-col items-center gap-1 text-center text-white p-1">
+      <div class="font-bold text-xs">${card.category}</div>
+      <div class="text-xs line-clamp-3">${card.achievement}</div>
+      <div class="text-xs text-white">${card.year}</div>
       </div>
        `;
     }
