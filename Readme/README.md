@@ -7,6 +7,12 @@
 # POÄNGSYSTEM
 Gissar man fel får man -10 poäng. Gissar man rätt får man +100 poäng. Gör man klart spelet på under 60 sekunder får mna +100 bonuspoäng. Vinner man spelet på under 120 sekunder får man +50 bonuspoäng. Vinner man spelet på under 25 sekunder får man +25 bonuspoäng. Ifall man får alla rätt direkt får man +200 bonuspoäng. Vinst i spelet resulterar i att skärmen täcks med konfetti. När man vunnit spelet visas en lista som innehåller leaderboardplacering, poäng, tid och försök samt en knapp för att komma tillbaks till menyn för att starta om spelet och se den fullständiga leaderboarden. I leaderboarden kan man sortera efter antingen tid eller poäng.
 
+# FLIP
+createNobelCards() lägger till logiken som behövs för flippedcards.
+flipCard() 
+checkMatch() kollar om korten matchat eller inte 
+renderCards() uppdaterar hur korten ser ut i HTML/CSS
+
 # TEKNISKT/ÖVRIGT
 Spelet har localstorage och all data sparas efter man refreshar eller lämnar sidan. Pga localstorage kan man inte se andra spelares resultat. Man kan spela lokalt genom att turas om (i framtiden skulle globalstorage kunna läggas till så man kan se andra personers resultat). Spelet är anpassat för chrome fast är testat och fungerar felfritt på safari, opera, duckduckgo, firefox, samsung internet, brave och edge. Spelet är anpassat för både mobiltelefon och dator. Gissar man fel skakar korten.
 
