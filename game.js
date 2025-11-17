@@ -70,8 +70,7 @@ function checkMatch() {
 
     if (game.matches === game.pairsNeeded) {
       stopTimer();
-      clearInterval(game.timerInterval);
-    ;
+   
       gameSound.win.currentTime = 0;
       gameSound.win.play().catch((e) => console.log("Ljud blockerat"));
     
@@ -80,15 +79,16 @@ function checkMatch() {
   } else {
     game.score -= 10;
     document.getElementById("score").textContent = game.score;
-
+  
     game.isFlipping = true;
     const card1Element = document.querySelector(`[data-card-id="${id1}"]`);
     const card2Element = document.querySelector(`[data-card-id="${id2}"]`);
 
    
-setTimeout(() => {
+   gameSound.wrong.play().catch((e) => console.log("Ljud blockerat"));
     if (card1Element) card1Element.classList.add("shake");
     if (card2Element) card2Element.classList.add("shake");
+
     setTimeout(() => {
       if (card1Element) card1Element.classList.remove("shake");
       if (card2Element) card2Element.classList.remove("shake");
@@ -97,8 +97,7 @@ setTimeout(() => {
       game.flippedCards = [];
       game.isFlipping = false;
       renderCards();
-  }, 500); // Shake-längd
-}, 400); // Flip-längd
+  }, 600); 
 }
 }
 
